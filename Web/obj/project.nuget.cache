@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "dgSpecHash": "a/tjfUYu0QM=",
+  "success": false,
+  "projectFilePath": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Web\\Web.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\USUARIO\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.21.0\\microsoft.visualstudio.azure.containers.tools.targets.1.21.0.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1104",
+      "level": "Error",
+      "message": "No se encuentra el proyecto \"C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Business\\Business.csproj\". Compruebe que la referencia al proyecto sea válida y que exista el archivo de proyecto.",
+      "libraryId": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Business\\Business.csproj",
+      "targetGraphs": [
+        "net9.0"
+      ]
+    }
+  ]
+}

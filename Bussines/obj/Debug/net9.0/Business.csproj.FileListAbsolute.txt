@@ -1,0 +1,6 @@
+C:\Users\USUARIO\source\repos\NeoMarke-master\Bussines\obj\Debug\net9.0\Business.csproj.AssemblyReference.cache
+C:\Users\USUARIO\source\repos\NeoMarke-master\Bussines\obj\Debug\net9.0\Business.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\USUARIO\source\repos\NeoMarke-master\Bussines\obj\Debug\net9.0\Business.AssemblyInfoInputs.cache
+C:\Users\USUARIO\source\repos\NeoMarke-master\Bussines\obj\Debug\net9.0\Business.AssemblyInfo.cs
+C:\Users\USUARIO\source\repos\NeoMarke-master\Bussines\obj\Debug\net9.0\Business.csproj.CoreCompileInputs.cache
+C:\Users\USUARIO\source\repos\NeoMarke-master\Bussines\obj\Debug\net9.0\Business.sourcelink.json
