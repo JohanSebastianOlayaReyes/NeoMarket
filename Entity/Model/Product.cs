@@ -24,7 +24,7 @@ namespace Entity.Model
         public ImageItem ImageItems { get; set; }
         public ICollection<MovimientInventory> MovimientInventories { get; set; }
         public ICollection<Buyout> Buyouts { get; set; }
-        public ICollection<SeleDetail> SeleDetails { get; set; }
+        public ICollection<SaleDetail> SeleDetails { get; set; }
 
 
     }

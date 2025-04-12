@@ -33,8 +33,14 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Business\\Business.csproj": {
-                "projectPath": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Business\\Business.csproj"
+              "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Bussines\\Business.csproj": {
+                "projectPath": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Bussines\\Business.csproj"
+              },
+              "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Data\\Data.csproj": {
+                "projectPath": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Data\\Data.csproj"
+              },
+              "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Utilities\\Utilities.csproj": {
+                "projectPath": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Utilities\\Utilities.csproj"
               }
             }
           }
@@ -55,9 +61,21 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[9.0.2, )"
+            },
             "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
               "target": "Package",
               "version": "[1.21.0, )"
+            },
+            "MySql.Data": {
+              "target": "Package",
+              "version": "[9.2.0, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[8.1.1, )"
             }
           },
           "imports": [

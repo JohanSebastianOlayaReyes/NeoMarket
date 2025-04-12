@@ -13,13 +13,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "Bussines\Busine
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diagram", "Diagram3\Diagram.csproj", "{65F5A70C-F6D5-41F4-B7C1-36211C2FEC64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web1", "Web1\Web1.csproj", "{A591A174-F4AE-4F43-AE0C-CE5B9449C86A}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DDl", "DDl", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 	ProjectSection(SolutionItems) = preProject
 		Mysql.txt = Mysql.txt
-		Sqlserver.sql = Sqlserver.sql
+		sqlserver.txt = sqlserver.txt
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication", "WebApplication\WebApplication.csproj", "{DD8B0734-CA5D-4BCC-8A4B-47DFE7BDADEA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,10 +47,10 @@ Global
 		{65F5A70C-F6D5-41F4-B7C1-36211C2FEC64}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65F5A70C-F6D5-41F4-B7C1-36211C2FEC64}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65F5A70C-F6D5-41F4-B7C1-36211C2FEC64}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A591A174-F4AE-4F43-AE0C-CE5B9449C86A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A591A174-F4AE-4F43-AE0C-CE5B9449C86A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A591A174-F4AE-4F43-AE0C-CE5B9449C86A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A591A174-F4AE-4F43-AE0C-CE5B9449C86A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD8B0734-CA5D-4BCC-8A4B-47DFE7BDADEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD8B0734-CA5D-4BCC-8A4B-47DFE7BDADEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD8B0734-CA5D-4BCC-8A4B-47DFE7BDADEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD8B0734-CA5D-4BCC-8A4B-47DFE7BDADEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

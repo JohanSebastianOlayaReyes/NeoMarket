@@ -42,9 +42,9 @@ namespace Entity.Context
         public DbSet<Category> Category { get; set; }
         public DbSet<ImageItem> ImageItem { get; set; }
         public DbSet<Buyout> Buyout { get; set; }
-        public DbSet<SeleDetail> SeleDetail { get; set; }
+        public DbSet<SaleDetail> SeleDetail { get; set; }
         public DbSet<Person> Person { get; set; }
-        public DbSet<Sele> Sele { get; set; }
+        public DbSet<Sale> Sele { get; set; }
         public DbSet<Notification> Notification { get; set; }
         public DbSet<Form> Form { get; set; }
         public DbSet<RolForm> RolForm { get; set; }
@@ -101,7 +101,7 @@ namespace Entity.Context
                 .HasForeignKey(b => b.IdUser);
 
             // Configuración de la relación de uno a muchos entre Product y SeleDetail
-            modelBuilder.Entity<SeleDetail>()
+            modelBuilder.Entity<SaleDetail>()
                 .HasOne(sd => sd.Product) 
                 .WithMany(p => p.SeleDetails) 
                 .HasForeignKey(sd => sd.IdProduct); 
@@ -112,13 +112,13 @@ namespace Entity.Context
                 .HasForeignKey<Person>(p => p.IdUser);
 
             // Configuración de la relación de uno a muchos entre User y Sele
-            modelBuilder.Entity<Sele>()
+            modelBuilder.Entity<Sale>()
                 .HasOne(s => s.User) 
                 .WithMany(u => u.Seles) 
                 .HasForeignKey(s => s.IdUser);
 
             // Configuración de la relación de uno a muchos entre Sele y SeleDetail
-            modelBuilder.Entity<SeleDetail>()
+            modelBuilder.Entity<SaleDetail>()
                 .HasOne(sd => sd.Sele) 
                 .WithMany(s => s.SeleDetails) 
                 .HasForeignKey(sd => sd.IdSele);

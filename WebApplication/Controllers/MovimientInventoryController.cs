@@ -1,0 +1,127 @@
+﻿using Business;
+using Entity.DTO;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
+using Utilities.Exceptions;
+using ValidationException = Utilities.Exceptions.ValidationException;
+
+namespace Web.Controllers
+{
+    /// <summary>
+    /// Controlador para la gestión de movimientos de inventario en el sistema
+    /// </summary>
+    [Route("api/[controller]")]
+    [ApiController]
+    [Produces("application/json")]
+    public class MovimientInventoryController : ControllerBase
+    {
+        private readonly MovimientInventoryBusiness _MovimientInventoryBusiness;
+        private readonly ILogger<MovimientInventoryController> _logger;
+
+        /// <summary>
+        /// Constructor del controlador de movimientos de inventario
+        /// </summary>
+        /// <param name="MovimientInventoryBusiness">Capa de negocio de movimientos de inventario</param>
+        /// <param name="logger">Logger para registro de eventos</param>
+        public MovimientInventoryController(MovimientInventoryBusiness MovimientInventoryBusiness, ILogger<MovimientInventoryController> logger)
+        {
+            _MovimientInventoryBusiness = MovimientInventoryBusiness;
+            _logger = logger;
+        }
+
+        /// <summary>
+        /// Obtiene todos los movimientos de inventario del sistema
+        /// </summary>
+        /// <returns>Lista de movimientos de inventario</returns>
+        /// <response code="200">Retorna la lista de movimientos</response>
+        /// <response code="500">Error interno del servidor</response>
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<MovimientInventoryDto>), 200)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> GetAllMovimientInventories()
+        {
+            try
+            {
+                var movements = await _MovimientInventoryBusiness.GetAllMovimientInventoryAsync();
+                return Ok(movements);
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error al obtener movimientos de inventario");
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Obtiene un movimiento de inventario específico por su ID
+        /// </summary>
+        /// <param name="id">ID del movimiento de inventario</param>
+        /// <returns>Movimiento de inventario solicitado</returns>
+        /// <response code="200">Retorna el movimiento solicitado</response>
+        /// <response code="400">ID proporcionado no válido</response>
+        /// <response code="404">Movimiento no encontrado</response>
+        /// <response code="500">Error interno del servidor</response>
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(MovimientInventoryDto), 200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> GetMovimientInventoryById(int id)
+        {
+            try
+            {
+                var movement = await _MovimientInventoryBusiness.GetMovimientInventoryByIdAsync(id);
+                return Ok(movement);
+            }
+            catch (ValidationException ex)
+            {
+                _logger.LogWarning(ex, "Validación fallida para el movimiento con ID: {MovimientInventoryId}", id);
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (EntityNotFoundException ex)
+            {
+                _logger.LogInformation(ex, "Movimiento de inventario no encontrado con ID: {MovimientInventoryId}", id);
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error al obtener movimiento de inventario con ID: {MovimientInventoryId}", id);
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Crea un nuevo movimiento de inventario en el sistema
+        /// </summary>
+        /// <param name="movimientInventoryDto">Datos del movimiento a crear</param>
+        /// <returns>Movimiento de inventario creado</returns>
+        /// <response code="201">Retorna el movimiento creado</response>
+        /// <response code="400">Datos del movimiento no válidos</response>
+        /// <response code="500">Error interno del servidor</response>
+        [HttpPost]
+        [ProducesResponseType(typeof(MovimientInventoryDto), 201)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> CreateMovimientInventory([FromBody] MovimientInventoryDto movimientInventoryDto)
+        {
+            try
+            {
+                var createdMovement = await _MovimientInventoryBusiness.CreateMovimientInventoryAsync(movimientInventoryDto);
+                return CreatedAtAction(nameof(GetMovimientInventoryById), new { id = createdMovement.Id }, createdMovement);
+            }
+            catch (ValidationException ex)
+            {
+                _logger.LogWarning(ex, "Validación fallida al crear movimiento de inventario");
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error al crear movimiento de inventario");
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+    }
+}
