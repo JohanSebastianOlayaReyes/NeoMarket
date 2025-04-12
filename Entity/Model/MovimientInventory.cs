@@ -16,5 +16,6 @@ namespace Entity.Model
         public Inventory Inventory { get; set; }
         public int IdProduct { get; set; }
         public Product Product { get; set; }
+
     }
 }

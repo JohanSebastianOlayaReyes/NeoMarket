@@ -3,8 +3,40 @@
   "WorkspaceRootPath": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{65F5A70C-F6D5-41F4-B7C1-36211C2FEC64}|Diagram3\\Diagram.csproj|c:\\users\\usuario\\source\\repos\\neomarke-master\\diagram3\\model1.edmx||{C99AEA30-8E36-4515-B76F-496F5A48A6AA}|",
-      "RelativeMoniker": "D:0:0:{65F5A70C-F6D5-41F4-B7C1-36211C2FEC64}|Diagram3\\Diagram.csproj|solutionrelative:diagram3\\model1.edmx||{C99AEA30-8E36-4515-B76F-496F5A48A6AA}|"
+      "AbsoluteMoniker": "D:0:0:{784DBB40-60B8-494C-A312-DA1F435B5859}|Data\\Data.csproj|c:\\users\\usuario\\source\\repos\\neomarke-master\\data\\userdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{784DBB40-60B8-494C-A312-DA1F435B5859}|Data\\Data.csproj|solutionrelative:data\\userdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{784DBB40-60B8-494C-A312-DA1F435B5859}|Data\\Data.csproj|c:\\users\\usuario\\source\\repos\\neomarke-master\\data\\roldata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{784DBB40-60B8-494C-A312-DA1F435B5859}|Data\\Data.csproj|solutionrelative:data\\roldata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{784DBB40-60B8-494C-A312-DA1F435B5859}|Data\\Data.csproj|c:\\users\\usuario\\source\\repos\\neomarke-master\\data\\productdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{784DBB40-60B8-494C-A312-DA1F435B5859}|Data\\Data.csproj|solutionrelative:data\\productdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{784DBB40-60B8-494C-A312-DA1F435B5859}|Data\\Data.csproj|c:\\users\\usuario\\source\\repos\\neomarke-master\\data\\persondata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{784DBB40-60B8-494C-A312-DA1F435B5859}|Data\\Data.csproj|solutionrelative:data\\persondata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{784DBB40-60B8-494C-A312-DA1F435B5859}|Data\\Data.csproj|c:\\users\\usuario\\source\\repos\\neomarke-master\\data\\moduledata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{784DBB40-60B8-494C-A312-DA1F435B5859}|Data\\Data.csproj|solutionrelative:data\\moduledata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{784DBB40-60B8-494C-A312-DA1F435B5859}|Data\\Data.csproj|c:\\users\\usuario\\source\\repos\\neomarke-master\\data\\inventorydata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{784DBB40-60B8-494C-A312-DA1F435B5859}|Data\\Data.csproj|solutionrelative:data\\inventorydata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{784DBB40-60B8-494C-A312-DA1F435B5859}|Data\\Data.csproj|c:\\users\\usuario\\source\\repos\\neomarke-master\\data\\imageitemdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{784DBB40-60B8-494C-A312-DA1F435B5859}|Data\\Data.csproj|solutionrelative:data\\imageitemdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{784DBB40-60B8-494C-A312-DA1F435B5859}|Data\\Data.csproj|c:\\users\\usuario\\source\\repos\\neomarke-master\\data\\companydata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{784DBB40-60B8-494C-A312-DA1F435B5859}|Data\\Data.csproj|solutionrelative:data\\companydata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{784DBB40-60B8-494C-A312-DA1F435B5859}|Data\\Data.csproj|c:\\users\\usuario\\source\\repos\\neomarke-master\\data\\categorydata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{784DBB40-60B8-494C-A312-DA1F435B5859}|Data\\Data.csproj|solutionrelative:data\\categorydata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -47,14 +79,119 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Model1.edmx [Diagram1]",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Diagram3\\Model1.edmx",
-              "RelativeDocumentMoniker": "Diagram3\\Model1.edmx",
-              "ToolTip": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Diagram3\\Model1.edmx [Diagram1]",
-              "RelativeToolTip": "Diagram3\\Model1.edmx [Diagram1]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001116|",
-              "WhenOpened": "2025-04-11T03:15:20.668Z",
-              "EditorCaption": " [Diagram1]"
+              "Title": "UserData.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Data\\UserData.cs",
+              "RelativeDocumentMoniker": "Data\\UserData.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Data\\UserData.cs",
+              "RelativeToolTip": "Data\\UserData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-12T04:34:03.364Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "RolData.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Data\\RolData.cs",
+              "RelativeDocumentMoniker": "Data\\RolData.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Data\\RolData.cs",
+              "RelativeToolTip": "Data\\RolData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-12T04:33:57.113Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ProductData.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Data\\ProductData.cs",
+              "RelativeDocumentMoniker": "Data\\ProductData.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Data\\ProductData.cs",
+              "RelativeToolTip": "Data\\ProductData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-12T04:33:50.132Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PersonData.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Data\\PersonData.cs",
+              "RelativeDocumentMoniker": "Data\\PersonData.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Data\\PersonData.cs",
+              "RelativeToolTip": "Data\\PersonData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-12T04:33:44.482Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ModuleData.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Data\\ModuleData.cs",
+              "RelativeDocumentMoniker": "Data\\ModuleData.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Data\\ModuleData.cs",
+              "RelativeToolTip": "Data\\ModuleData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-12T04:33:38.298Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "InventoryData.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Data\\InventoryData.cs",
+              "RelativeDocumentMoniker": "Data\\InventoryData.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Data\\InventoryData.cs",
+              "RelativeToolTip": "Data\\InventoryData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-12T04:33:30.96Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ImageItemData.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Data\\ImageItemData.cs",
+              "RelativeDocumentMoniker": "Data\\ImageItemData.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Data\\ImageItemData.cs",
+              "RelativeToolTip": "Data\\ImageItemData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-12T04:33:21.486Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "CompanyData.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Data\\CompanyData.cs",
+              "RelativeDocumentMoniker": "Data\\CompanyData.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Data\\CompanyData.cs",
+              "RelativeToolTip": "Data\\CompanyData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-12T04:33:14.257Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "CategoryData.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Data\\CategoryData.cs",
+              "RelativeDocumentMoniker": "Data\\CategoryData.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Data\\CategoryData.cs",
+              "RelativeToolTip": "Data\\CategoryData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-12T04:32:55.18Z",
+              "EditorCaption": ""
             }
           ]
         }

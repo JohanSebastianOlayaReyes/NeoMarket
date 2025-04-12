@@ -21,6 +21,10 @@ using System.Threading.Tasks;
             public string ZoneProduct { get; set; } = string.Empty;
             public int UserId { get; set; }
             public  User User { get; set; }
+            public ICollection<MovimientInventory> MovimientInventories { get; set; }
+            public ICollection<Product> Products { get; set; }
+
+
     }
 
 }

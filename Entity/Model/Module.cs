@@ -12,5 +12,7 @@ using System.Threading.Tasks;
 		public int Id { get; set; }
 		public string NameModule { get; set; } = string.Empty;
         public bool status { get; set; }
+        public ICollection<Form> Forms { get; set; }
+
     }
 }

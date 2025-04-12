@@ -18,6 +18,7 @@ using System.Threading.Tasks;
         public bool Status { get; set; }
         public int NumberIndification { get; set; }
         public int IdUser { get; set; }
-        public  User User { get; set; }
+        public User User { get; set; }
+
     }
-	}
+}

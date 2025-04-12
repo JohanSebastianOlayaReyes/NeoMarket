@@ -13,5 +13,6 @@ namespace Entity.Model
         public int Totaly { get; set; }
         public int IdUser { get; set; }
         public User User { get; set; }
+        public ICollection<SeleDetail> SeleDetails { get; set; }
     }
 }

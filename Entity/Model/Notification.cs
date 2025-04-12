@@ -15,6 +15,8 @@ namespace Entity.Model
         public string Read { get; set; }
         public DateTime Date { get; set; }
         public int IdUser { get; set; }
+        public User User { get; set; }
+
         public int IdReference { get; set; }
     }
 }

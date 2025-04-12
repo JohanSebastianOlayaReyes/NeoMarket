@@ -36,10 +36,20 @@ namespace Entity.Context
         /// DB SETS
         ///
         public DbSet<Rol> Rol { get; set; }
-
-
-
-
+        public DbSet<MovimientInventory> MovimientInventory { get; set; }
+        public DbSet<Product> Product { get; set; }
+        public DbSet<Inventory> Inventory { get; set; }
+        public DbSet<Category> Category { get; set; }
+        public DbSet<ImageItem> ImageItem { get; set; }
+        public DbSet<Buyout> Buyout { get; set; }
+        public DbSet<SeleDetail> SeleDetail { get; set; }
+        public DbSet<Person> Person { get; set; }
+        public DbSet<Sele> Sele { get; set; }
+        public DbSet<Notification> Notification { get; set; }
+        public DbSet<Form> Form { get; set; }
+        public DbSet<RolForm> RolForm { get; set; }
+        public DbSet<System.Reflection.Module> Module { get; set; }
+        public DbSet<Sede> Sede { get; set; }
 
         /// <summary>
         /// Configura los modelos de la base de datos aplicando configuraciones desde ensamblados.
@@ -48,23 +58,106 @@ namespace Entity.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            // Relación uno a muchos entre Rol y User
-            modelBuilder.Entity<Rol>()
-                    .HasMany(r => r.Users) // Un Rol tiene muchos Users
-                    .WithOne(u => u.Rol)   // Un User pertenece a un Rol
-                    .HasForeignKey(u => u.IdRol); // Clave foránea en User
+            // Configuración de la relación de uno a muchos entre Inventory y MovimientInventory
+            modelBuilder.Entity<MovimientInventory>()
+                .HasOne(mi => mi.Inventory)
+                .WithMany(i => i.MovimientInventories) 
+                .HasForeignKey(mi => mi.IdInventory);
 
-            // Configuración existente
+            // Configuración de la relación de uno a muchos entre Product y MovimientInventory
+            modelBuilder.Entity<MovimientInventory>()
+                .HasOne(mi => mi.Product) // Un MovimientInventory tiene un Product
+                .WithMany(p => p.MovimientInventories) // Un Product tiene muchos MovimientInventory
+                .HasForeignKey(mi => mi.IdProduct); // Clave foránea en MovimientInventory
+
+            // Configuración de la relación de uno a muchos entre Inventory y Product
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.Inventory) 
+                .WithMany(i => i.Products) 
+                .HasForeignKey(p => p.IdInventory);
+
+            // Configuración de la relación de uno a uno entre Product y Category
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.Category) 
+                .WithOne(c => c.Product) 
+                .HasForeignKey<Product>(p => p.IdCategory); 
+
+            // Configuración de la relación de uno a uno entre Product y ImageItem
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.ImageItems) 
+                .WithOne(ii => ii.Product) 
+                .HasForeignKey<Product>(p => p.IdImageItem); 
+
+            // Configuración de la relación de uno a muchos entre Product y Buyout
+            modelBuilder.Entity<Buyout>()
+                .HasOne(b => b.Product) 
+                .WithMany(p => p.Buyouts)
+                .HasForeignKey(b => b.IdProduct);
+
+            // Configuración de la relación de muchos a uno entre Buyout y User
+            modelBuilder.Entity<Buyout>()
+                .HasOne(b => b.User) 
+                .WithMany(u => u.Buyouts) 
+                .HasForeignKey(b => b.IdUser);
+
+            // Configuración de la relación de uno a muchos entre Product y SeleDetail
+            modelBuilder.Entity<SeleDetail>()
+                .HasOne(sd => sd.Product) 
+                .WithMany(p => p.SeleDetails) 
+                .HasForeignKey(sd => sd.IdProduct); 
+
             modelBuilder.Entity<Person>()
-                .HasOne(p => p.User)
-                .WithOne(u => u.Person)
-                .HasForeignKey<User>(u => u.IdPerson);
+                .HasOne(p => p.User) 
+                .WithOne(u => u.Person) 
+                .HasForeignKey<Person>(p => p.IdUser);
+
+            // Configuración de la relación de uno a muchos entre User y Sele
+            modelBuilder.Entity<Sele>()
+                .HasOne(s => s.User) 
+                .WithMany(u => u.Seles) 
+                .HasForeignKey(s => s.IdUser);
+
+            // Configuración de la relación de uno a muchos entre Sele y SeleDetail
+            modelBuilder.Entity<SeleDetail>()
+                .HasOne(sd => sd.Sele) 
+                .WithMany(s => s.SeleDetails) 
+                .HasForeignKey(sd => sd.IdSele);
+            
+            // Configuración de la relación de uno a muchos entre User y Notification
+            modelBuilder.Entity<Notification>()
+                .HasOne(n => n.User) 
+                .WithMany(u => u.Notifications) 
+                .HasForeignKey(n => n.IdUser);
+
+            // Configuración de la relación de muchos a muchos entre Rol y Form
+            modelBuilder.Entity<RolForm>()
+                .HasKey(rf => new { rf.IdRol, rf.IdForm }); // Clave compuesta
+
+            modelBuilder.Entity<RolForm>()
+                .HasOne(rf => rf.Rol) // Un RolForm tiene un Rol
+                .WithMany(r => r.RolForms) // Un Rol tiene muchos RolForm
+                .HasForeignKey(rf => rf.IdRol); // Clave foránea en RolForm
+
+            modelBuilder.Entity<RolForm>()
+                .HasOne(rf => rf.Form) // Un RolForm tiene un Form
+                .WithMany(f => f.RolForms) // Un Form tiene muchos RolForm
+                .HasForeignKey(rf => rf.IdForm); // Clave foránea en RolForm
+
+            // Configuración de la relación de uno a muchos entre Module y Form
+            modelBuilder.Entity<Form>()
+                .HasOne(f => f.Module) 
+                .WithMany(m => m.Forms) 
+                .HasForeignKey(f => f.IdModule);
+
+            // Configuración de la relación de uno a muchos entre Company y Sede
+            modelBuilder.Entity<Sede>()
+                .HasOne(s => s.Company) // Una Sede tiene una Company
+                .WithMany(c => c.Sede) // Una Company tiene muchas Sede
+                .HasForeignKey(s => s.IdCompany); // Clave foránea en Sede
 
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-
-
-
+        }
 
         /// <summary>
         /// Configura opciones adicionales del contexto, como el registro de datos sensibles.

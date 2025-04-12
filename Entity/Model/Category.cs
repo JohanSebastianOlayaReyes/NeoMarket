@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 		public int Id { get; set; }
 		public string NameCategory { get; set; } = string.Empty;
         public string Description { get; set; }
-        public ICollection<Item> Items { get; set; }
+        public Product Product { get; set; }
 
     }
 }

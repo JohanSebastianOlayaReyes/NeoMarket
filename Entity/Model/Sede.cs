@@ -19,8 +19,9 @@ using System.Threading.Tasks;
         public DateTime CreateAt { get; set; }
         public DateTime UpdateDate { get; set; }
         public DateTime DeleteAt { get; set; }
-        public int IdCompany { get; set; } 
+        public int IdCompany { get; set; }
         public Company Company { get; set; }
+
 
     }
 }

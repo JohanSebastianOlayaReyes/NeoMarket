@@ -1,4 +1,4 @@
-﻿using Entity.Contexts;
+﻿using Entity.Context;
 using Entity.DTO;
 using Entity.Model;
 using Microsoft.EntityFrameworkCore;

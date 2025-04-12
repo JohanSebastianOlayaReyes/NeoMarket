@@ -14,6 +14,7 @@ namespace Entity.Model
         public DateTime CreateAt { get; set; }
         public DateTime UpdateAt { get; set; }
         public DateTime DeleteAt { get; set; }
-        public ICollection<Item> Item { get; set; }
+        public Product Product { get; set; }
+
     }
 }

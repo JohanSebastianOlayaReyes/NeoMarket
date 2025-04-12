@@ -18,10 +18,12 @@ using System.Threading.Tasks;
             public bool Status { get; set; }
             public int IdCompany { get; set; }
 			public  Company Company { get; set; }
-			public int IdPerson { get; set; }
 			public  Person Person { get; set; }
-			public ICollection<Inventory> Inventory { get; set; }
 			public int IdRol {  get; set; }
 			public  Rol Rol { get; set; }
-		}
-	}
+            public ICollection<Buyout> Buyouts { get; set; }
+            public ICollection<Sele> Seles { get; set; }
+            public ICollection<Notification> Notifications { get; set; }
+
+    }
+}

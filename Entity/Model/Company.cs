@@ -20,7 +20,6 @@ using System.Threading.Tasks;
 		public string EmailCompany { get; set; } = string.Empty;
 		public string NitCompany { get; set; }
 		public bool Status { get; set; }
-        public ICollection<User> User { get; set; }
         public ICollection<Sede> Sede { get; set; }
     }
 }

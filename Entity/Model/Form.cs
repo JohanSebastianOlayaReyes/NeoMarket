@@ -13,7 +13,9 @@ using System.Threading.Tasks;
 		public string NameForm { get; set; } = string.Empty;
         public string Description { get; set; }
 		public bool Status { get; set; }
-	       
-        public ICollection <RolForm> RolForm { get; set; }
+        public int IdModule { get; set; }
+        public Module Module { get; set; }
+
+        public ICollection<RolForm> RolForms { get; set; }
     }
-	}
+}

@@ -17,6 +17,7 @@ using System.Threading.Tasks;
         public Rol Rol { get; set; }
         public int IdForm { get; set; }
         public Form Form { get; set; }
+
     }
 
 }

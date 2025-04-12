@@ -15,6 +15,9 @@ using System.Threading.Tasks;
 		public string Description { get; set; }
 		public bool Status { get; set; }
 		public int IdUser { get; set; }
-        public  ICollection<User> Users { get; set; }
-	}
+        public User User { get; set; }
+		public ICollection<User> Users { get; set; } 
+        public ICollection<RolForm> RolForms { get; set; }
+
+    }
 }

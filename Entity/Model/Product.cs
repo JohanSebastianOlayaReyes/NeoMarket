@@ -17,10 +17,15 @@ namespace Entity.Model
         public DateTime UpdateAt { get; set; }
         public bool Status { get; set; }
         public int IdInventory { get; set; }
-        public  Inventory Inventory { get; set; }
+        public Inventory Inventory { get; set; }
         public int IdCategory { get; set; }
-        public  Category Category { get; set; }
+        public Category Category { get; set; }
         public int IdImageItem { get; set; }
-        public  ImageItem ImageItems { get; set; }
+        public ImageItem ImageItems { get; set; }
+        public ICollection<MovimientInventory> MovimientInventories { get; set; }
+        public ICollection<Buyout> Buyouts { get; set; }
+        public ICollection<SeleDetail> SeleDetails { get; set; }
+
+
     }
 }
