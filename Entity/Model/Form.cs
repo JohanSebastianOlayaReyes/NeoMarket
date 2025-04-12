@@ -15,7 +15,6 @@ using System.Threading.Tasks;
 		public bool Status { get; set; }
         public int IdModule { get; set; }
         public Module Module { get; set; }
-
         public ICollection<RolForm> RolForms { get; set; }
     }
 }

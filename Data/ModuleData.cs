@@ -1,25 +1,64 @@
-﻿using Entity.Context;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Entity.Context;
 using Entity.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Data
 {
+    /// <summary>
+    /// Repository encargado de la gestión de la entidad Module en la base de datos.
+    /// </summary>
     public class ModuleData
     {
         private readonly ApplicationDbContext _context;
         private readonly ILogger<ModuleData> _logger;
 
+        /// <summary>
+        /// Constructor que recibe el contexto de la base de datos.
+        /// </summary>
+        /// <param name="context">Instancia de <see cref="ApplicationDbContext"/> para la conexión con la base de datos.</param>
+        /// <param name="logger">Instancia de <see cref="ILogger"/> para el registro de logs.</param>
         public ModuleData(ApplicationDbContext context, ILogger<ModuleData> logger)
         {
             _context = context;
             _logger = logger;
         }
 
-        // Crear un nuevo Módulo
+        /// <summary>
+        /// Obtiene todos los Modules almacenados en la base de datos.
+        /// </summary>
+        /// <returns>Lista de Modules.</returns>
+        public async Task<IEnumerable<Module>> GetAllAsync()
+        {
+            return await _context.Set<Module>().ToListAsync();
+        }
+
+        /// <summary>
+        /// Obtiene un Module por su ID.
+        /// </summary>
+        /// <param name="id">Identificador único del Module.</param>
+        /// <returns>El Module con el ID especificado.</returns>
+        public async Task<Module?> GetByIdAsync(int id)
+        {
+            try
+            {
+                return await _context.Set<Module>().FindAsync(id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error al obtener Module con ID {id}");
+                throw; // Re-lanza la excepción para que sea manejada en capas superiores
+            }
+        }
+
+        /// <summary>
+        /// Crea un nuevo Module en la base de datos.
+        /// </summary>
+        /// <param name="module">Instancia del Module a crear.</param>
+        /// <returns>El Module creado.</returns>
         public async Task<Module> CreateAsync(Module module)
         {
             try
@@ -30,32 +69,16 @@ namespace Data
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error al crear el Módulo: {ex.Message}");
+                _logger.LogError($"Error al crear el Module {ex.Message}");
                 throw;
             }
         }
 
-        // Obtener todos los Módulos
-        public async Task<IEnumerable<Module>> GetAllAsync()
-        {
-            return await _context.Set<Module>().ToListAsync();
-        }
-
-        // Obtener un Módulo por ID
-        public async Task<Module?> GetByIdAsync(int id)
-        {
-            try
-            {
-                return await _context.Set<Module>().FindAsync(id);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Error al obtener el Módulo con ID {id}: {ex.Message}");
-                throw;
-            }
-        }
-
-        // Actualizar un Módulo
+        /// <summary>
+        /// Actualiza un Module existente en la base de datos.
+        /// </summary>
+        /// <param name="module">Objeto con la información actualizada.</param>
+        /// <returns>True si la operación fue exitosa, False en caso contrario.</returns>
         public async Task<bool> UpdateAsync(Module module)
         {
             try
@@ -66,12 +89,16 @@ namespace Data
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error al actualizar el Módulo: {ex.Message}");
+                _logger.LogError($"Error al actualizar el Module {ex.Message}");
                 return false;
             }
         }
 
-        // Eliminar un Módulo por ID
+        /// <summary>
+        /// Elimina un Module en la base de datos.
+        /// </summary>
+        /// <param name="id">Identificador único del Module a eliminar.</param>
+        /// <returns>True si la eliminación fue exitosa, False en caso contrario.</returns>
         public async Task<bool> DeleteAsync(int id)
         {
             try
@@ -86,7 +113,7 @@ namespace Data
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error al eliminar el Módulo: {ex.Message}");
+                _logger.LogError($"Error al eliminar el Module {ex.Message}");
                 return false;
             }
         }

@@ -1,25 +1,64 @@
-﻿using Entity.Context;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Entity.Context;
 using Entity.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Data
 {
+    /// <summary>
+    /// Repository encargado de la gestión de la entidad Person en la base de datos.
+    /// </summary>
     public class PersonData
     {
         private readonly ApplicationDbContext _context;
         private readonly ILogger<PersonData> _logger;
 
+        /// <summary>
+        /// Constructor que recibe el contexto de la base de datos.
+        /// </summary>
+        /// <param name="context">Instancia de <see cref="ApplicationDbContext"/> para la conexión con la base de datos.</param>
+        /// <param name="logger">Instancia de <see cref="ILogger"/> para el registro de logs.</param>
         public PersonData(ApplicationDbContext context, ILogger<PersonData> logger)
         {
             _context = context;
             _logger = logger;
         }
 
-        // Crear una nueva Persona
+        /// <summary>
+        /// Obtiene todas las Persons almacenadas en la base de datos.
+        /// </summary>
+        /// <returns>Lista de Persons.</returns>
+        public async Task<IEnumerable<Person>> GetAllAsync()
+        {
+            return await _context.Set<Person>().ToListAsync();
+        }
+
+        /// <summary>
+        /// Obtiene una Person por su ID.
+        /// </summary>
+        /// <param name="id">Identificador único de la Person.</param>
+        /// <returns>La Person con el ID especificado.</returns>
+        public async Task<Person?> GetByIdAsync(int id)
+        {
+            try
+            {
+                return await _context.Set<Person>().FindAsync(id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error al obtener Person con ID {id}");
+                throw; // Re-lanza la excepción para que sea manejada en capas superiores
+            }
+        }
+
+        /// <summary>
+        /// Crea una nueva Person en la base de datos.
+        /// </summary>
+        /// <param name="person">Instancia de la Person a crear.</param>
+        /// <returns>La Person creada.</returns>
         public async Task<Person> CreateAsync(Person person)
         {
             try
@@ -30,32 +69,16 @@ namespace Data
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error al crear la Persona: {ex.Message}");
+                _logger.LogError($"Error al crear la Person {ex.Message}");
                 throw;
             }
         }
 
-        // Obtener todas las Personas
-        public async Task<IEnumerable<Person>> GetAllAsync()
-        {
-            return await _context.Set<Person>().ToListAsync();
-        }
-
-        // Obtener una Persona por ID
-        public async Task<Person?> GetByIdAsync(int id)
-        {
-            try
-            {
-                return await _context.Set<Person>().FindAsync(id);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Error al obtener la Persona con ID {id}: {ex.Message}");
-                throw;
-            }
-        }
-
-        // Actualizar una Persona
+        /// <summary>
+        /// Actualiza una Person existente en la base de datos.
+        /// </summary>
+        /// <param name="person">Objeto con la información actualizada.</param>
+        /// <returns>True si la operación fue exitosa, False en caso contrario.</returns>
         public async Task<bool> UpdateAsync(Person person)
         {
             try
@@ -66,12 +89,16 @@ namespace Data
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error al actualizar la Persona: {ex.Message}");
+                _logger.LogError($"Error al actualizar la Person {ex.Message}");
                 return false;
             }
         }
 
-        // Eliminar una Persona por ID
+        /// <summary>
+        /// Elimina una Person en la base de datos.
+        /// </summary>
+        /// <param name="id">Identificador único de la Person a eliminar.</param>
+        /// <returns>True si la eliminación fue exitosa, False en caso contrario.</returns>
         public async Task<bool> DeleteAsync(int id)
         {
             try
@@ -86,7 +113,7 @@ namespace Data
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error al eliminar la Persona: {ex.Message}");
+                _logger.LogError($"Error al eliminar la Person {ex.Message}");
                 return false;
             }
         }

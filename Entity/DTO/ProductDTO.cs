@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entity.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,5 +15,7 @@ namespace Entity.DTO
         public decimal Price { get; set; } 
         public bool Status { get; set; }
         public int IdInventory { get; set; }
+        public int IdCategory { get; set; }
+        public int IdImageItem { get; set; }
     }
 }

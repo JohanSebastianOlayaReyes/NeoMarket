@@ -9,12 +9,12 @@ namespace Business;
 /// <summary>
 /// Clase de negocio encargada de la lógica relacionada con las notificaciones del sistema.
 /// </summary>
-public class NotificacationBusiness
+public class NotificationBusiness
 {
     private readonly NotificationData _notificationData;
     private readonly ILogger _logger;
 
-    public NotificacationBusiness(NotificationData notificationData, ILogger logger)
+    public NotificationBusiness(NotificationData notificationData, ILogger logger)
     {
         _notificationData = notificationData;
         _logger = logger;
@@ -104,7 +104,8 @@ public class NotificacationBusiness
             Id = notification.Id,
             Message = notification.Message,
             TypeAction = notification.TypeAction,
-            Read = notification.Read
+            Read = notification.Read,
+            Date = notification.Date
         };
     }
 
@@ -116,7 +117,8 @@ public class NotificacationBusiness
             Id = notificationDto.Id,
             Message = notificationDto.Message,
             TypeAction = notificationDto.TypeAction,
-            Read = notificationDto.Read
+            Read = notificationDto.Read,
+            Date = notificationDto.Date
         };
     }
 

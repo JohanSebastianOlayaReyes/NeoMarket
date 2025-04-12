@@ -106,7 +106,7 @@ public class CategoryBusiness
         {
             Id = category.Id,
             NameCategory = category.NameCategory,
-            Description = category.Description
+            Description = category.Description,
         };
     }
 
@@ -117,7 +117,7 @@ public class CategoryBusiness
         {
             Id = categoryDto.Id,
             NameCategory = categoryDto.NameCategory,
-            Description = categoryDto.Description
+            Description = categoryDto.Description,
         };
     }
 

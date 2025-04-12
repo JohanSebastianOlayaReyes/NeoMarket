@@ -103,6 +103,7 @@ public class ModuleBusiness
         return new ModuleDto
         {
             Id = module.Id,
+            NameModule = module.NameModule,
             status = module.status
         };
     }
@@ -113,6 +114,7 @@ public class ModuleBusiness
         return new Module
         {
             Id = moduleDto.Id,
+            NameModule = moduleDto.NameModule,
             status = moduleDto.status
         };
     }

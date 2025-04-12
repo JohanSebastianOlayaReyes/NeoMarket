@@ -1,25 +1,64 @@
-﻿using Entity.Context;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Entity.Context;
 using Entity.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Data
 {
+    /// <summary>
+    /// Repository encargado de la gestión de la entidad SeleDetail en la base de datos.
+    /// </summary>
     public class SeleDetailData
     {
         private readonly ApplicationDbContext _context;
         private readonly ILogger<SeleDetailData> _logger;
 
+        /// <summary>
+        /// Constructor que recibe el contexto de la base de datos.
+        /// </summary>
+        /// <param name="context">Instancia de <see cref="ApplicationDbContext"/> para la conexión con la base de datos.</param>
+        /// <param name="logger">Instancia de <see cref="ILogger"/> para el registro de logs.</param>
         public SeleDetailData(ApplicationDbContext context, ILogger<SeleDetailData> logger)
         {
             _context = context;
             _logger = logger;
         }
 
-        // Crear un nuevo SeleDetail
+        /// <summary>
+        /// Obtiene todos los SeleDetails almacenados en la base de datos.
+        /// </summary>
+        /// <returns>Lista de SeleDetails.</returns>
+        public async Task<IEnumerable<SeleDetail>> GetAllAsync()
+        {
+            return await _context.Set<SeleDetail>().ToListAsync();
+        }
+
+        /// <summary>
+        /// Obtiene un SeleDetail por su ID.
+        /// </summary>
+        /// <param name="id">Identificador único del SeleDetail.</param>
+        /// <returns>El SeleDetail con el ID especificado.</returns>
+        public async Task<SeleDetail?> GetByIdAsync(int id)
+        {
+            try
+            {
+                return await _context.Set<SeleDetail>().FindAsync(id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error al obtener SeleDetail con ID {id}");
+                throw; // Re-lanza la excepción para que sea manejada en capas superiores
+            }
+        }
+
+        /// <summary>
+        /// Crea un nuevo SeleDetail en la base de datos.
+        /// </summary>
+        /// <param name="seleDetail">Instancia del SeleDetail a crear.</param>
+        /// <returns>El SeleDetail creado.</returns>
         public async Task<SeleDetail> CreateAsync(SeleDetail seleDetail)
         {
             try
@@ -30,44 +69,16 @@ namespace Data
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error al crear el SeleDetail: {ex.Message}");
+                _logger.LogError($"Error al crear el SeleDetail {ex.Message}");
                 throw;
             }
         }
 
-        // Obtener todos los SeleDetails
-        public async Task<IEnumerable<SeleDetail>> GetAllAsync()
-        {
-            try
-            {
-                return await _context.Set<SeleDetail>()
-                    .Include(sd => sd.Sele) // Relación con Sele
-                    .ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Error al obtener todos los SeleDetails: {ex.Message}");
-                throw;
-            }
-        }
-
-        // Obtener un SeleDetail por ID
-        public async Task<SeleDetail?> GetByIdAsync(int id)
-        {
-            try
-            {
-                return await _context.Set<SeleDetail>()
-                    .Include(sd => sd.Sele) // Relación con Sele
-                    .FirstOrDefaultAsync(sd => sd.Id == id);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Error al obtener el SeleDetail con ID {id}: {ex.Message}");
-                throw;
-            }
-        }
-
-        // Actualizar un SeleDetail
+        /// <summary>
+        /// Actualiza un SeleDetail existente en la base de datos.
+        /// </summary>
+        /// <param name="seleDetail">Objeto con la información actualizada.</param>
+        /// <returns>True si la operación fue exitosa, False en caso contrario.</returns>
         public async Task<bool> UpdateAsync(SeleDetail seleDetail)
         {
             try
@@ -78,12 +89,16 @@ namespace Data
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error al actualizar el SeleDetail: {ex.Message}");
+                _logger.LogError($"Error al actualizar el SeleDetail {ex.Message}");
                 return false;
             }
         }
 
-        // Eliminar un SeleDetail por ID
+        /// <summary>
+        /// Elimina un SeleDetail en la base de datos.
+        /// </summary>
+        /// <param name="id">Identificador único del SeleDetail a eliminar.</param>
+        /// <returns>True si la eliminación fue exitosa, False en caso contrario.</returns>
         public async Task<bool> DeleteAsync(int id)
         {
             try
@@ -98,11 +113,10 @@ namespace Data
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error al eliminar el SeleDetail: {ex.Message}");
+                _logger.LogError($"Error al eliminar el SeleDetail {ex.Message}");
                 return false;
             }
         }
     }
 }
-
 

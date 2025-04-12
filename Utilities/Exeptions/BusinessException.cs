@@ -33,7 +33,7 @@ namespace Utilities.Exceptions
         /// <summary>
         /// Tipo de entidad que no se encontró.
         /// </summary>
-        public string? EntityType { get; }
+        public string EntityType { get; }
 
         /// <summary>
         /// Identificador de la entidad buscada.
@@ -82,7 +82,7 @@ namespace Utilities.Exceptions
         /// <summary>
         /// Campo que no cumple con la validación.
         /// </summary>
-        public string? PropertyName { get; }
+        public string PropertyName { get; }
 
         /// <summary>
         /// Inicializa una nueva instancia de <see cref="ValidationException"/> con un mensaje de error.
@@ -121,7 +121,7 @@ namespace Utilities.Exceptions
         /// <summary>
         /// Código que identifica la regla de negocio violada.
         /// </summary>
-        public string? RuleCode { get; }
+        public string RuleCode { get; }
 
         /// <summary>
         /// Inicializa una nueva instancia de <see cref="BusinessRuleViolationException"/> con un mensaje de error.
@@ -160,12 +160,12 @@ namespace Utilities.Exceptions
         /// <summary>
         /// Recurso al que se intentó acceder.
         /// </summary>
-        public string? Resource { get; }
+        public string Resource { get; }
 
         /// <summary>
         /// Tipo de operación que se intentó realizar.
         /// </summary>
-        public string?  Operation { get; }
+        public string  Operation { get; }
 
         /// <summary>
         /// Inicializa una nueva instancia de <see cref="UnauthorizedAccessBusinessException"/> con un mensaje de error.
@@ -205,7 +205,7 @@ namespace Utilities.Exceptions
         /// <summary>
         /// Nombre del servicio externo que generó el error.
         /// </summary>
-        public string? ServiceName { get; }
+        public string ServiceName { get; }
 
         /// <summary>
         /// Inicializa una nueva instancia de <see cref="ExternalServiceException"/> con un mensaje de error.

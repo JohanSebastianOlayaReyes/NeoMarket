@@ -1,47 +1,46 @@
-﻿using Entity.Model;
-using Entity.Context;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Entity.Context;
+using Entity.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System.Threading.Tasks;
 
 namespace Data
 {
+    /// <summary>
+    /// Repository encargado de la gestión de la entidad Product en la base de datos.
+    /// </summary>
     public class ProductData
     {
         private readonly ApplicationDbContext _context;
-        private readonly ILogger<Product> _logger;
+        private readonly ILogger<ProductData> _logger;
 
-        public ProductData(ApplicationDbContext context, ILogger<Product> logger)
+        /// <summary>
+        /// Constructor que recibe el contexto de la base de datos.
+        /// </summary>
+        /// <param name="context">Instancia de <see cref="ApplicationDbContext"/> para la conexión con la base de datos.</param>
+        /// <param name="logger">Instancia de <see cref="ILogger"/> para el registro de logs.</param>
+        public ProductData(ApplicationDbContext context, ILogger<ProductData> logger)
         {
             _context = context;
             _logger = logger;
         }
 
-        // Crear un nuevo item
-        public async Task<Product?> CreateAsync(Product item)
-        {
-            try
-            {
-                await _context.Set<Product>().AddAsync(item);
-                await _context.SaveChangesAsync();
-                return item;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Error al crear el item: {ex.Message}");
-                throw;
-            }
-        }
-
-        // Obtener todos los items
+        /// <summary>
+        /// Obtiene todos los Products almacenados en la base de datos.
+        /// </summary>
+        /// <returns>Lista de Products.</returns>
         public async Task<IEnumerable<Product>> GetAllAsync()
         {
             return await _context.Set<Product>().ToListAsync();
         }
 
-        // Obtener un item por ID
+        /// <summary>
+        /// Obtiene un Product por su ID.
+        /// </summary>
+        /// <param name="id">Identificador único del Product.</param>
+        /// <returns>El Product con el ID especificado.</returns>
         public async Task<Product?> GetByIdAsync(int id)
         {
             try
@@ -50,47 +49,73 @@ namespace Data
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error al obtener el item con ID {id}: {ex.Message}");
+                _logger.LogError(ex, $"Error al obtener Product con ID {id}");
+                throw; // Re-lanza la excepción para que sea manejada en capas superiores
+            }
+        }
+
+        /// <summary>
+        /// Crea un nuevo Product en la base de datos.
+        /// </summary>
+        /// <param name="product">Instancia del Product a crear.</param>
+        /// <returns>El Product creado.</returns>
+        public async Task<Product> CreateAsync(Product product)
+        {
+            try
+            {
+                await _context.Set<Product>().AddAsync(product);
+                await _context.SaveChangesAsync();
+                return product;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error al crear el Product {ex.Message}");
                 throw;
             }
         }
 
-        // Actualizar un item
-        public async Task<bool> UpdateAsync(Product item)
+        /// <summary>
+        /// Actualiza un Product existente en la base de datos.
+        /// </summary>
+        /// <param name="product">Objeto con la información actualizada.</param>
+        /// <returns>True si la operación fue exitosa, False en caso contrario.</returns>
+        public async Task<bool> UpdateAsync(Product product)
         {
             try
             {
-                _context.Set<Product>().Update(item);
+                _context.Set<Product>().Update(product);
                 await _context.SaveChangesAsync();
                 return true;
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error al actualizar el item: {ex.Message}");
-                throw;
+                _logger.LogError($"Error al actualizar el Product {ex.Message}");
+                return false;
             }
         }
 
-        // Eliminar un item
+        /// <summary>
+        /// Elimina un Product en la base de datos.
+        /// </summary>
+        /// <param name="id">Identificador único del Product a eliminar.</param>
+        /// <returns>True si la eliminación fue exitosa, False en caso contrario.</returns>
         public async Task<bool> DeleteAsync(int id)
         {
             try
             {
-                var item = await GetByIdAsync(id);
-                if (item == null)
-                {
+                var product = await _context.Set<Product>().FindAsync(id);
+                if (product == null)
                     return false;
-                }
-                _context.Set<Product>().Remove(item);
+
+                _context.Set<Product>().Remove(product);
                 await _context.SaveChangesAsync();
                 return true;
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error al eliminar el item con ID {id}: {ex.Message}");
-                throw;
+                _logger.LogError($"Error al eliminar el Product {ex.Message}");
+                return false;
             }
         }
-
     }
 }

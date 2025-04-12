@@ -15,6 +15,6 @@ namespace Entity.DTO
         public DateTime Date { get; set; }
         public string Description { get; set; }
         public int IdInventory { get; set; }
-        public int IdUser { get; set; }
+        public int IdProduct { get; set; }
     }
 }

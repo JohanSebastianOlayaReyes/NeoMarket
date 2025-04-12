@@ -1,4 +1,5 @@
 ﻿using Data;
+using Entity.Enum;
 using Entity.DTO;
 using Entity.Model;
 using Microsoft.Extensions.Logging;

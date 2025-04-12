@@ -1,26 +1,64 @@
-﻿using Entity.Context;
-using Entity.DTO;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Entity.Context;
 using Entity.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Data
 {
+    /// <summary>
+    /// Repository encargado de la gestión de la entidad Rol en la base de datos.
+    /// </summary>
     public class RolData
     {
         private readonly ApplicationDbContext _context;
         private readonly ILogger<RolData> _logger;
 
+        /// <summary>
+        /// Constructor que recibe el contexto de la base de datos.
+        /// </summary>
+        /// <param name="context">Instancia de <see cref="ApplicationDbContext"/> para la conexión con la base de datos.</param>
+        /// <param name="logger">Instancia de <see cref="ILogger"/> para el registro de logs.</param>
         public RolData(ApplicationDbContext context, ILogger<RolData> logger)
         {
             _context = context;
             _logger = logger;
         }
 
-        // Crear un nuevo rol
+        /// <summary>
+        /// Obtiene todos los Roles almacenados en la base de datos.
+        /// </summary>
+        /// <returns>Lista de Roles.</returns>
+        public async Task<IEnumerable<Rol>> GetAllAsync()
+        {
+            return await _context.Set<Rol>().ToListAsync();
+        }
+
+        /// <summary>
+        /// Obtiene un Rol por su ID.
+        /// </summary>
+        /// <param name="id">Identificador único del Rol.</param>
+        /// <returns>El Rol con el ID especificado.</returns>
+        public async Task<Rol?> GetByIdAsync(int id)
+        {
+            try
+            {
+                return await _context.Set<Rol>().FindAsync(id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error al obtener Rol con ID {id}");
+                throw; // Re-lanza la excepción para que sea manejada en capas superiores
+            }
+        }
+
+        /// <summary>
+        /// Crea un nuevo Rol en la base de datos.
+        /// </summary>
+        /// <param name="rol">Instancia del Rol a crear.</param>
+        /// <returns>El Rol creado.</returns>
         public async Task<Rol> CreateAsync(Rol rol)
         {
             try
@@ -31,32 +69,16 @@ namespace Data
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error al crear el Rol: {ex.Message}");
+                _logger.LogError($"Error al crear el Rol {ex.Message}");
                 throw;
             }
         }
 
-        // Obtener todos los roles
-        public async Task<IEnumerable<Rol>> GetAllAsync()
-        {
-            return await _context.Set<Rol>().ToListAsync();
-        }
-
-        // Obtener un rol por ID
-        public async Task<Rol?> GetByIdAsync(int id)
-        {
-            try
-            {
-                return await _context.Set<Rol>().FindAsync(id);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Error al obtener el Rol con ID {id}: {ex.Message}");
-                throw;
-            }
-        }
-
-        // Actualizar un rol
+        /// <summary>
+        /// Actualiza un Rol existente en la base de datos.
+        /// </summary>
+        /// <param name="rol">Objeto con la información actualizada.</param>
+        /// <returns>True si la operación fue exitosa, False en caso contrario.</returns>
         public async Task<bool> UpdateAsync(Rol rol)
         {
             try
@@ -67,12 +89,16 @@ namespace Data
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error al actualizar el Rol: {ex.Message}");
+                _logger.LogError($"Error al actualizar el Rol {ex.Message}");
                 return false;
             }
         }
 
-        // Eliminar un rol por ID
+        /// <summary>
+        /// Elimina un Rol en la base de datos.
+        /// </summary>
+        /// <param name="id">Identificador único del Rol a eliminar.</param>
+        /// <returns>True si la eliminación fue exitosa, False en caso contrario.</returns>
         public async Task<bool> DeleteAsync(int id)
         {
             try
@@ -87,14 +113,9 @@ namespace Data
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error al eliminar el Rol: {ex.Message}");
+                _logger.LogError($"Error al eliminar el Rol {ex.Message}");
                 return false;
             }
-        }
-
-        public async Task CreateAsync(RolDto rol)
-        {
-            throw new NotImplementedException();
         }
     }
 }

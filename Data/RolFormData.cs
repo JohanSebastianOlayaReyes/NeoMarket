@@ -1,25 +1,64 @@
-﻿using Entity.Context;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Entity.Context;
 using Entity.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Data
 {
+    /// <summary>
+    /// Repository encargado de la gestión de la entidad RolForm en la base de datos.
+    /// </summary>
     public class RolFormData
     {
         private readonly ApplicationDbContext _context;
         private readonly ILogger<RolFormData> _logger;
 
+        /// <summary>
+        /// Constructor que recibe el contexto de la base de datos.
+        /// </summary>
+        /// <param name="context">Instancia de <see cref="ApplicationDbContext"/> para la conexión con la base de datos.</param>
+        /// <param name="logger">Instancia de <see cref="ILogger"/> para el registro de logs.</param>
         public RolFormData(ApplicationDbContext context, ILogger<RolFormData> logger)
         {
             _context = context;
             _logger = logger;
         }
 
-        // Crear un nuevo RolForm
+        /// <summary>
+        /// Obtiene todos los RolForms almacenados en la base de datos.
+        /// </summary>
+        /// <returns>Lista de RolForms.</returns>
+        public async Task<IEnumerable<RolForm>> GetAllAsync()
+        {
+            return await _context.Set<RolForm>().ToListAsync();
+        }
+
+        /// <summary>
+        /// Obtiene un RolForm por su ID.
+        /// </summary>
+        /// <param name="id">Identificador único del RolForm.</param>
+        /// <returns>El RolForm con el ID especificado.</returns>
+        public async Task<RolForm?> GetByIdAsync(int id)
+        {
+            try
+            {
+                return await _context.Set<RolForm>().FindAsync(id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error al obtener RolForm con ID {id}");
+                throw; // Re-lanza la excepción para que sea manejada en capas superiores
+            }
+        }
+
+        /// <summary>
+        /// Crea un nuevo RolForm en la base de datos.
+        /// </summary>
+        /// <param name="rolForm">Instancia del RolForm a crear.</param>
+        /// <returns>El RolForm creado.</returns>
         public async Task<RolForm> CreateAsync(RolForm rolForm)
         {
             try
@@ -30,46 +69,16 @@ namespace Data
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error al crear el RolForm: {ex.Message}");
+                _logger.LogError($"Error al crear el RolForm {ex.Message}");
                 throw;
             }
         }
 
-        // Obtener todos los RolForms
-        public async Task<IEnumerable<RolForm>> GetAllAsync()
-        {
-            try
-            {
-                return await _context.Set<RolForm>()
-                    .Include(rf => rf.Rol)
-                    .Include(rf => rf.Form)
-                    .ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Error al obtener todos los RolForms: {ex.Message}");
-                throw;
-            }
-        }
-
-        // Obtener un RolForm por ID
-        public async Task<RolForm?> GetByIdAsync(int rolId, int formId)
-        {
-            try
-            {
-                return await _context.Set<RolForm>()
-                    .Include(rf => rf.Rol)
-                    .Include(rf => rf.Form)
-                    .FirstOrDefaultAsync(rf => rf.IdRol == rolId && rf.IdForm == formId);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Error al obtener el RolForm con RolId {rolId} y FormId {formId}: {ex.Message}");
-                throw;
-            }
-        }
-
-        // Actualizar un RolForm
+        /// <summary>
+        /// Actualiza un RolForm existente en la base de datos.
+        /// </summary>
+        /// <param name="rolForm">Objeto con la información actualizada.</param>
+        /// <returns>True si la operación fue exitosa, False en caso contrario.</returns>
         public async Task<bool> UpdateAsync(RolForm rolForm)
         {
             try
@@ -80,18 +89,21 @@ namespace Data
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error al actualizar el RolForm: {ex.Message}");
+                _logger.LogError($"Error al actualizar el RolForm {ex.Message}");
                 return false;
             }
         }
 
-        // Eliminar un RolForm por RolId y FormId
-        public async Task<bool> DeleteAsync(int rolId, int formId)
+        /// <summary>
+        /// Elimina un RolForm en la base de datos.
+        /// </summary>
+        /// <param name="id">Identificador único del RolForm a eliminar.</param>
+        /// <returns>True si la eliminación fue exitosa, False en caso contrario.</returns>
+        public async Task<bool> DeleteAsync(int id)
         {
             try
             {
-                var rolForm = await _context.Set<RolForm>()
-                    .FirstOrDefaultAsync(rf => rf.IdRol == rolId && rf.IdForm == formId);
+                var rolForm = await _context.Set<RolForm>().FindAsync(id);
                 if (rolForm == null)
                     return false;
 
@@ -101,10 +113,9 @@ namespace Data
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error al eliminar el RolForm con RolId {rolId} y FormId {formId}: {ex.Message}");
+                _logger.LogError($"Error al eliminar el RolForm {ex.Message}");
                 return false;
             }
         }
     }
 }
-

@@ -12,6 +12,6 @@ namespace Entity.DTOs
         public string NameForm { get; set; }
         public string Description { get; set; } = string.Empty;
         public bool Status { get; set; }
-        public int IdRolForm { get; set; }
+        public int IdModule { get; set; }
     }
 }

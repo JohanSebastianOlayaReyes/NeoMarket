@@ -14,5 +14,6 @@ namespace Entity.DTO
         public string Message { get; set; }
         public string Read { get; set; }
         public DateTime Date { get; set; }
+        public int IdUser { get; set; }
     }
 }

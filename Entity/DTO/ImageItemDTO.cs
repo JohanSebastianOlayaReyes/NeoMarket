@@ -10,6 +10,5 @@ namespace Entity.DTO
     {
         public int Id { get; set; }
         public string UrlImage { get; set; } = string.Empty;
-        public int IdProduct { get; set; } 
     }
 }
