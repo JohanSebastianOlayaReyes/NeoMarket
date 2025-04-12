@@ -1,4 +1,4 @@
-namespace Web1
+namespace Web
 {
     public class WeatherForecast
     {
