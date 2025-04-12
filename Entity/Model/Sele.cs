@@ -10,7 +10,7 @@ namespace Entity.Model
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
-        public string Totaly { get; set; }
+        public int Totaly { get; set; }
         public int IdUser { get; set; }
         public User User { get; set; }
     }

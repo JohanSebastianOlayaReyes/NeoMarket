@@ -10,7 +10,7 @@ namespace Entity.DTO
     {
         public int Id { get; set; }
         public int Quantity { get; set; }
-        public DateTime DateTime { get; set; }
+        public DateTime Date { get; set; }
 
     }
 }

@@ -36,12 +36,7 @@ namespace Entity.Context
         /// DB SETS
         ///
         public DbSet<Rol> Rol { get; set; }
-        public DbSet<Form> Form { get; set; }
-        public DbSet<RolForm> RolForm { get; set; }
-        public DbSet<Inventory> Inventory { get; set; }
-        public DbSet<User> User { get; set; }
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Company> Companies { get; set; }
+
 
 
 
@@ -52,38 +47,6 @@ namespace Entity.Context
         /// <param name="modelBuilder">Constructor del modelo de base de datos.</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-            //Relacion uno a muchos entre Company y Sede
-        modelBuilder.Entity<Company>()
-        .HasMany(c => c.Sede) // Una Company tiene muchas Sedes
-        .WithOne(s => s.Company) // Una Sede pertenece a una Company
-        .HasForeignKey(s => s.IdCompany); // Clave foránea en Sede
-
-            base.OnModelCreating(modelBuilder);
-
-            // Relación uno a muchos entre Company y User
-            modelBuilder.Entity<Company>()
-                .HasMany(c => c.User) 
-                .WithOne(u => u.Company)  
-                .HasForeignKey(u => u.IdCompany);
-
-            base.OnModelCreating(modelBuilder);
-
-            //Relación uno a muchos entre Category y Item
-            modelBuilder.Entity<Category>()
-        .HasMany(c => c.Items) 
-        .WithOne(i => i.Category) 
-        .HasForeignKey(i => i.IdCategory); 
-
-            base.OnModelCreating(modelBuilder);
-
-        // Relación uno a muchos entre User y Inventory
-        modelBuilder.Entity<User>()
-                .HasMany(u => u.Inventory)
-                .WithOne(i => i.User)
-                .HasForeignKey(i => i.UserId);
-
-            base.OnModelCreating(modelBuilder);
 
             // Relación uno a muchos entre Rol y User
             modelBuilder.Entity<Rol>()
@@ -100,13 +63,6 @@ namespace Entity.Context
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-            modelBuilder.Entity<Person>()
-               .HasOne(p => p.User)
-               .WithOne(u => u.Person)
-               .HasForeignKey<User>(u => u.IdPerson); // Especifica la clave foránea
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-        }
 
 
 
