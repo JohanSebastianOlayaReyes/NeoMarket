@@ -12,9 +12,9 @@ namespace Business;
 public class BuyoutBusiness
 {
     private readonly BuyoutData _buyoutData;
-    private readonly ILogger _logger;
+    private readonly ILogger <BuyoutBusiness> _logger;
 
-    public BuyoutBusiness(BuyoutData buyoutData, ILogger logger)
+    public BuyoutBusiness(BuyoutData buyoutData, ILogger <BuyoutBusiness> logger)
     {
         _buyoutData = buyoutData;
         _logger = logger;

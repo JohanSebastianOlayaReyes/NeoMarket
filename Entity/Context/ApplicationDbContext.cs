@@ -98,7 +98,7 @@ namespace Entity.Context
             modelBuilder.Entity<Buyout>()
                 .HasOne(b => b.User) 
                 .WithMany(u => u.Buyouts) 
-                .HasForeignKey(b => b.IdUser);
+                .HasForeignKey(b => b.UserId);
 
             // Configuración de la relación de uno a muchos entre Product y SeleDetail
             modelBuilder.Entity<SaleDetail>()

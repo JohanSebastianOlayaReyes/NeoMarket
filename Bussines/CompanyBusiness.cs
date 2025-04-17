@@ -14,9 +14,9 @@ namespace Business;
 public class CompanyBusiness
 {
     private readonly CompanyData _companyData;
-    private readonly ILogger _logger;
+    private readonly ILogger <CompanyBusiness> _logger;
 
-    public CompanyBusiness(CompanyData companyData, ILogger logger)
+    public CompanyBusiness(CompanyData companyData, ILogger<CompanyBusiness> logger)
     {
         _companyData = companyData;
         _logger = logger;

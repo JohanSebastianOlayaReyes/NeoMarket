@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DDl", "DDl", "{02EA681E-C7D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{EBA49FA9-F508-4375-A4E9-CAA889AC7F79}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{EA71227E-CA18-4B2C-AD1F-4D10B3F21760}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,7 +46,6 @@ Global
 		{CBE7F953-44D4-4A11-95C9-ED296143527C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBE7F953-44D4-4A11-95C9-ED296143527C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{65F5A70C-F6D5-41F4-B7C1-36211C2FEC64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{65F5A70C-F6D5-41F4-B7C1-36211C2FEC64}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65F5A70C-F6D5-41F4-B7C1-36211C2FEC64}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65F5A70C-F6D5-41F4-B7C1-36211C2FEC64}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EBA49FA9-F508-4375-A4E9-CAA889AC7F79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

@@ -12,9 +12,9 @@ namespace Business;
 public class NotificationBusiness
 {
     private readonly NotificationData _notificationData;
-    private readonly ILogger _logger;
+    private readonly ILogger <NotificationBusiness> _logger;
 
-    public NotificationBusiness(NotificationData notificationData, ILogger logger)
+    public NotificationBusiness(NotificationData notificationData, ILogger<NotificationBusiness> logger)
     {
         _notificationData = notificationData;
         _logger = logger;

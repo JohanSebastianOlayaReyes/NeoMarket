@@ -12,9 +12,9 @@ namespace Business;
 public class SaleDetailBusiness
 {
     private readonly SeleDetailData _seleDetailData;
-    private readonly ILogger _logger;
+    private readonly ILogger <SaleDetailBusiness> _logger;
 
-    public SaleDetailBusiness(SeleDetailData seleDetailData, ILogger logger)
+    public SaleDetailBusiness(SeleDetailData seleDetailData, ILogger <SaleDetailBusiness> logger)
     {
         _seleDetailData = seleDetailData;
         _logger = logger;

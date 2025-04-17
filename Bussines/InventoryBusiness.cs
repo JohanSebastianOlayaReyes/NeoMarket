@@ -12,9 +12,9 @@ namespace Business;
 public class InventoryBusiness
 {
     private readonly InventoryData _inventoryData;
-    private readonly ILogger _logger;
+    private readonly ILogger <InventoryBusiness> _logger;
 
-    public InventoryBusiness(InventoryData inventoryData, ILogger logger)
+    public InventoryBusiness(InventoryData inventoryData, ILogger <InventoryBusiness> logger)
     {
         _inventoryData = inventoryData;
         _logger = logger;

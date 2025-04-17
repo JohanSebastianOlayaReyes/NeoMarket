@@ -19,7 +19,7 @@ using System.Threading.Tasks;
             public int IdCompany { get; set; }
 			public  Company Company { get; set; }
 			public  Person Person { get; set; }
-			public int IdRol {  get; set; }
+			public int RolId {  get; set; }
 			public  Rol Rol { get; set; }
             public ICollection<Buyout> Buyouts { get; set; }
             public ICollection<Sale> Seles { get; set; }
