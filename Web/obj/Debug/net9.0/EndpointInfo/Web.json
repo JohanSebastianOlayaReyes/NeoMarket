@@ -2472,8 +2472,8 @@
             "nullable": true
           },
           "phoneNumber": {
-            "type": "integer",
-            "format": "int32"
+            "type": "string",
+            "nullable": true
           },
           "email": {
             "type": "string",

@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 			public int Id { get; set; }
 			public string UserName { get; set; } = string.Empty;
 			public string Password { get; set; } = string.Empty;
-			public DateTime CreateAt { get; set; }
-		    public DateTime UpdateAt { get; set; }
-            public string DeleteAt { get; set; }
+			public DateTime? CreateAt { get; set; }
+		    public DateTime? UpdateAt { get; set; }
+            public DateTime? DeleteAt { get; set; }
             public bool Status { get; set; }
             public int IdPerson { get; set; }
             public Person Person { get; set; }
