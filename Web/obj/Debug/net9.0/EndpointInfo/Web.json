@@ -2488,10 +2488,6 @@
           },
           "status": {
             "type": "boolean"
-          },
-          "idUser": {
-            "type": "integer",
-            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -2706,8 +2702,7 @@
           2,
           3,
           4,
-          5,
-          6
+          5
         ],
         "type": "integer",
         "format": "int32"
@@ -2738,11 +2733,7 @@
           "status": {
             "type": "boolean"
           },
-          "idRol": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "idCompany": {
+          "idPerson": {
             "type": "integer",
             "format": "int32"
           }

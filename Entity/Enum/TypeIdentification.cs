@@ -23,8 +23,5 @@ namespace Entity.Enum
 
         [Display(Name = "Numero de Identificación Triburaria")]
         NIT = 5,
-
-        [Display(Name = "Pasaporte")]
-        PA = 6,
     }
 }

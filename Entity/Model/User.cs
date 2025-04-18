@@ -16,11 +16,9 @@ using System.Threading.Tasks;
 		    public DateTime UpdateAt { get; set; }
             public string DeleteAt { get; set; }
             public bool Status { get; set; }
-            public int IdCompany { get; set; }
-			public  Company Company { get; set; }
-			public  Person Person { get; set; }
-			public int RolId {  get; set; }
-			public  Rol Rol { get; set; }
+            public int IdPerson { get; set; }
+            public Person Person { get; set; }
+		    public  Rol Rol { get; set; }
             public ICollection<Buyout> Buyouts { get; set; }
             public ICollection<Sale> Seles { get; set; }
             public ICollection<Notification> Notifications { get; set; }

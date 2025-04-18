@@ -28,7 +28,7 @@ public class BuyoutBusiness
             var buyouts = await _buyoutData.GetAllAsync();
             return MapToDTOList(buyouts);
         }
-        catch (Exception ex)
+        catch (Exception ex )
         {
             _logger.LogError(ex, "Error al obtener todas las compras");
             throw new ExternalServiceException("Base de datos", "Error al recuperar la lista de compras", ex);

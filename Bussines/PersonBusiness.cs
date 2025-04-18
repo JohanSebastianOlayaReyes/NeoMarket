@@ -107,6 +107,7 @@ public class PersonBusiness
             LastName = person.LastName,
             PhoneNumber = person.PhoneNumber,
             Email = person.Email,
+            Status = person.Status,
             NumberIndification = person.NumberIndification
         };
     }
@@ -121,7 +122,8 @@ public class PersonBusiness
             LastName = personDto.LastName,
             PhoneNumber = personDto.PhoneNumber,
             Email = personDto.Email,
-            NumberIndification = personDto.NumberIndification
+            NumberIndification = personDto.NumberIndification,
+            Status = personDto.Status
         };
     }
 

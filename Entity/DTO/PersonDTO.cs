@@ -17,6 +17,5 @@ namespace Entity.DTO
         public TypeIdentification TypeIdentification { get; set; }
         public int NumberIndification { get; set; }
         public bool Status { get; set; }
-        public int IdUser { get; set; }
     }
 }

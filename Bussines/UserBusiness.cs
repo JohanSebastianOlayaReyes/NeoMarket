@@ -105,7 +105,8 @@ public class UserBusiness
             Id = user.Id,
             UserName = user.UserName,
             Password = user.Password,
-            Status = user.Status
+            Status = user.Status,
+            IdPerson = user.IdPerson,
         };
     }
 
@@ -117,7 +118,8 @@ public class UserBusiness
             Id = userDto.Id,
             UserName = userDto.UserName,
             Password = userDto.Password,
-            Status = userDto.Status
+            Status = userDto.Status,
+            IdPerson = userDto.IdPerson,
         };
     }
 

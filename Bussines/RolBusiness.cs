@@ -106,7 +106,8 @@ public class RolBusiness
             Id = rol.Id,
             NameRol = rol.NameRol,
             Description = rol.Description,
-            Status = rol.Status
+            Status = rol.Status,
+            IdUser = rol.IdUser
         };
     }
 
@@ -117,7 +118,8 @@ public class RolBusiness
         {
             Id = rolDTO.Id,
             NameRol = rolDTO.NameRol,
-            Description = rolDTO.Description
+            Description = rolDTO.Description,
+            Status = rolDTO.Status,
         };
     }
 
