@@ -2246,10 +2246,6 @@
           "description": {
             "type": "string",
             "nullable": true
-          },
-          "idProduct": {
-            "type": "integer",
-            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -2326,6 +2322,9 @@
           "urlImage": {
             "type": "string",
             "nullable": true
+          },
+          "status": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false
@@ -2352,17 +2351,9 @@
             "type": "string",
             "nullable": true
           },
-          "stockActual": {
-            "type": "string",
-            "nullable": true
-          },
           "observations": {
             "type": "string",
             "nullable": true
-          },
-          "userId": {
-            "type": "integer",
-            "format": "int32"
           }
         },
         "additionalProperties": false

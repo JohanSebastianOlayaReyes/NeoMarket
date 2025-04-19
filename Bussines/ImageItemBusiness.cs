@@ -102,7 +102,8 @@ public class ImageItemBusiness
         return new ImageItemDTO
         {
             Id = imageItem.Id,
-            UrlImage = imageItem.UrlImage
+            UrlImage = imageItem.UrlImage,
+            Status = imageItem.Status
         };
     }
 
@@ -112,7 +113,8 @@ public class ImageItemBusiness
         return new ImageItem
         {
             Id = imageItemDto.Id,
-            UrlImage = imageItemDto.UrlImage
+            UrlImage = imageItemDto.UrlImage,
+            Status = imageItemDto.Status
         };
     }
 

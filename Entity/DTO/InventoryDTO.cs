@@ -13,9 +13,6 @@ namespace Entity.DTO
         public bool Status { get; set; }
         public string DescriptionInvetory { get; set; } = string.Empty;
         public string ZoneProduct {  get; set; } = string.Empty;
-        public string StockActual { get; set; } = string.Empty;
         public string Observations { get; set; }
-        public int UserId { get; set; }
-
     }
 }

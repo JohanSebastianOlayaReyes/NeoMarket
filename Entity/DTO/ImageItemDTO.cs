@@ -10,5 +10,6 @@ namespace Entity.DTO
     {
         public int Id { get; set; }
         public string UrlImage { get; set; } = string.Empty;
+        public bool Status { get; set; }
     }
 }

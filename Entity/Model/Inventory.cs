@@ -14,13 +14,11 @@ using System.Threading.Tasks;
             public string NameInventory { get; set; }
             public bool Status { get; set; } 
             public string Observations { get; set; } = string.Empty;
-            public DateTime CreateAt { get; set; }
-            public DateTime DeleteAt { get; set; }
-            public DateTime UpdateAt { get; set; }     
+            public DateTime? CreateAt { get; set; }
+            public DateTime? DeleteAt { get; set; }
+            public DateTime? UpdateAt { get; set; }     
             public string DescriptionInvetory { get; set; } = string.Empty;
             public string ZoneProduct { get; set; } = string.Empty;
-            public int UserId { get; set; }
-            public  User User { get; set; }
             public ICollection<MovimientInventory> MovimientInventories { get; set; }
             public ICollection<Product> Products { get; set; }
 
