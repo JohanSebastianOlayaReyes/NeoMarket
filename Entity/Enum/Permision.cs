@@ -20,6 +20,6 @@ namespace Entity.Enum
 
         [Display(Name = "Delete")]
         Delete = 4,
-
+        None = 5,
     }
 }

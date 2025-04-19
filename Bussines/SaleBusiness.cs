@@ -81,6 +81,160 @@ public class SaleBusiness
         }
     }
 
+    /// <summary>
+    /// Actualiza una venta existente en la base de datos.
+    /// </summary>
+    /// <param name="saleDto">El DTO de la venta con los datos actualizados.</param>
+    /// <returns>True si la actualización fue exitosa, False en caso contrario.</returns>
+    public async Task<bool> UpdateSaleAsync(SaleDTO saleDto)
+    {
+        try
+        {
+            ValidateSele(saleDto);
+
+            var sale = MapToEntity(saleDto);
+
+            var result = await _seleData.UpdateAsync(sale);
+
+            if (!result)
+            {
+                _logger.LogWarning("No se pudo actualizar la venta con ID {SaleId}", saleDto.Id);
+                throw new EntityNotFoundException("Venta", saleDto.Id);
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al actualizar la venta con ID {SaleId}", saleDto.Id);
+            throw new ExternalServiceException("Base de datos", $"Error al actualizar la venta con ID {saleDto.Id}", ex);
+        }
+    }
+
+    /// <summary>
+    /// Actualiza campos específicos de una venta existente en la base de datos.
+    /// </summary>
+    /// <param name="id">El ID de la venta a actualizar.</param>
+    /// <param name="updatedFields">El DTO con los campos actualizados.</param>
+    /// <returns>True si la actualización fue exitosa, False en caso contrario.</returns>
+    public async Task<bool> UpdatePartialSaleAsync(int id, SaleDTO updatedFields)
+    {
+        if (id <= 0)
+        {
+            _logger.LogWarning("Se intentó actualizar una venta con un ID inválido: {SaleId}", id);
+            throw new ValidationException("id", "El ID de la venta debe ser mayor a 0");
+        }
+
+        try
+        {
+            var existingSale = await _seleData.GetByIdAsync(id);
+            if (existingSale == null)
+            {
+                _logger.LogInformation("No se encontró la venta con ID {SaleId} para actualización parcial", id);
+                throw new EntityNotFoundException("Venta", id);
+            }
+
+            if (updatedFields.Totaly != existingSale.Totaly)
+            {
+                existingSale.Totaly = updatedFields.Totaly;
+            }
+            if (updatedFields.Date != existingSale.Date)
+            {
+                existingSale.Date = updatedFields.Date;
+            }
+
+            var result = await _seleData.UpdateAsync(existingSale);
+
+            if (!result)
+            {
+                _logger.LogWarning("No se pudo actualizar parcialmente la venta con ID {SaleId}", id);
+                throw new ExternalServiceException("Base de datos", $"Error al actualizar parcialmente la venta con ID {id}");
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al actualizar parcialmente la venta con ID {SaleId}", id);
+            throw new ExternalServiceException("Base de datos", $"Error al actualizar parcialmente la venta con ID {id}", ex);
+        }
+    }
+
+    /// <summary>
+    /// Realiza una eliminación lógica de una venta, marcándola como inactiva.
+    /// </summary>
+    /// <param name="id">El ID de la venta a eliminar lógicamente.</param>
+    /// <returns>True si la operación fue exitosa, False en caso contrario.</returns>
+    public async Task<bool> SoftDeleteSaleAsync(int id)
+    {
+        if (id <= 0)
+        {
+            _logger.LogWarning("Se intentó realizar una eliminación lógica con un ID inválido: {SaleId}", id);
+            throw new ValidationException("id", "El ID de la venta debe ser mayor a 0");
+        }
+
+        try
+        {
+            var sale = await _seleData.GetByIdAsync(id);
+            if (sale == null)
+            {
+                _logger.LogInformation("No se encontró la venta con ID {SaleId} para eliminación lógica", id);
+                throw new EntityNotFoundException("Venta", id);
+            }
+
+            sale.Totaly = 0; // Ejemplo: marcar como eliminada lógicamente
+
+            var result = await _seleData.UpdateAsync(sale);
+
+            if (!result)
+            {
+                _logger.LogWarning("No se pudo realizar la eliminación lógica de la venta con ID {SaleId}", id);
+                throw new ExternalServiceException("Base de datos", $"Error al realizar la eliminación lógica de la venta con ID {id}");
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al realizar la eliminación lógica de la venta con ID {SaleId}", id);
+            throw new ExternalServiceException("Base de datos", $"Error al realizar la eliminación lógica de la venta con ID {id}", ex);
+        }
+    }
+
+    /// <summary>
+    /// Elimina una venta de la base de datos por su ID.
+    /// </summary>
+    /// <param name="id">El ID de la venta a eliminar.</param>
+    /// <returns>True si la eliminación fue exitosa, False en caso contrario.</returns>
+    public async Task<bool> DeleteSaleAsync(int id)
+    {
+        if (id <= 0)
+        {
+            _logger.LogWarning("Se intentó eliminar una venta con un ID inválido: {SaleId}", id);
+            throw new ValidationException("id", "El ID de la venta debe ser mayor a 0");
+        }
+
+        try
+        {
+            var result = await _seleData.DeleteAsync(id);
+
+            if (!result)
+            {
+                _logger.LogInformation("No se encontró la venta con ID {SaleId} para eliminar", id);
+                throw new EntityNotFoundException("Venta", id);
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al eliminar la venta con ID {SaleId}", id);
+            throw new ExternalServiceException("Base de datos", $"Error al eliminar la venta con ID {id}", ex);
+        }
+    }
+
+
+
     // Método para validar el DTO
     private void ValidateSele(SaleDTO seleDto)
     {

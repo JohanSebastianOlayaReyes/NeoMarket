@@ -12,9 +12,9 @@ namespace Entity.Model
         public string NameProduct { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public decimal Price { get; set; }
-        public DateTime CreateAt { get; set; } = DateTime.Now;
-        public DateTime DeleteAt { get; set; }
-        public DateTime UpdateAt { get; set; }
+        public DateTime? CreateAt { get; set; }
+        public DateTime? DeleteAt { get; set; }
+        public DateTime? UpdateAt { get; set; }
         public bool Status { get; set; }
         public int IdInventory { get; set; }
         public Inventory Inventory { get; set; }

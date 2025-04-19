@@ -81,6 +81,142 @@ public class NotificationBusiness
         }
     }
 
+    public async Task<bool> UpdateNotificationAsync(NotificationDto notificationDto)
+    {
+        try
+        {
+            ValidateNotification(notificationDto);
+
+            var notification = MapToEntity(notificationDto);
+
+            var result = await _notificationData.UpdateAsync(notification);
+
+            if (!result)
+            {
+                _logger.LogWarning("No se pudo actualizar la notificación con ID {NotificationId}", notificationDto.Id);
+                throw new EntityNotFoundException("Notification", notificationDto.Id);
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al actualizar la notificación con ID {NotificationId}", notificationDto.Id);
+            throw new ExternalServiceException("Base de datos", $"Error al actualizar la notificación con ID {notificationDto.Id}", ex);
+        }
+    }
+
+    public async Task<bool> UpdatePartialNotificationAsync(int id, NotificationDto updatedFields)
+    {
+        if (id <= 0)
+        {
+            _logger.LogWarning("Se intentó actualizar una notificación con un ID inválido: {NotificationId}", id);
+            throw new ValidationException("id", "El ID de la notificación debe ser mayor a 0");
+        }
+
+        try
+        {
+            var existingNotification = await _notificationData.GetByIdAsync(id);
+            if (existingNotification == null)
+            {
+                _logger.LogInformation("No se encontró la notificación con ID {NotificationId} para actualización parcial", id);
+                throw new EntityNotFoundException("Notification", id);
+            }
+
+            if (!string.IsNullOrWhiteSpace(updatedFields.Message))
+            {
+                existingNotification.Message = updatedFields.Message;
+            }
+            if (updatedFields.TypeAction != existingNotification.TypeAction)
+            {
+                existingNotification.TypeAction = updatedFields.TypeAction;
+            }
+            if (updatedFields.Read != existingNotification.Read)
+            {
+                existingNotification.Read = updatedFields.Read;
+            }
+
+            var result = await _notificationData.UpdateAsync(existingNotification);
+
+            if (!result)
+            {
+                _logger.LogWarning("No se pudo actualizar parcialmente la notificación con ID {NotificationId}", id);
+                throw new ExternalServiceException("Base de datos", $"Error al actualizar parcialmente la notificación con ID {id}");
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al actualizar parcialmente la notificación con ID {NotificationId}", id);
+            throw new ExternalServiceException("Base de datos", $"Error al actualizar parcialmente la notificación con ID {id}", ex);
+        }
+    }
+
+    public async Task<bool> SoftDeleteNotificationAsync(int id)
+    {
+        if (id <= 0)
+        {
+            _logger.LogWarning("Se intentó realizar una eliminación lógica con un ID inválido: {NotificationId}", id);
+            throw new ValidationException("id", "El ID de la notificación debe ser mayor a 0");
+        }
+
+        try
+        {
+            var notification = await _notificationData.GetByIdAsync(id);
+            if (notification == null)
+            {
+                _logger.LogInformation("No se encontró la notificación con ID {NotificationId} para eliminación lógica", id);
+                throw new EntityNotFoundException("Notification", id);
+            }
+
+            notification.Read = "true"; // Ejemplo: marcar como leída o inactiva
+
+            var result = await _notificationData.UpdateAsync(notification);
+
+            if (!result)
+            {
+                _logger.LogWarning("No se pudo realizar la eliminación lógica de la notificación con ID {NotificationId}", id);
+                throw new ExternalServiceException("Base de datos", $"Error al realizar la eliminación lógica de la notificación con ID {id}");
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al realizar la eliminación lógica de la notificación con ID {NotificationId}", id);
+            throw new ExternalServiceException("Base de datos", $"Error al realizar la eliminación lógica de la notificación con ID {id}", ex);
+        }
+    }
+
+    public async Task<bool> DeleteNotificationAsync(int id)
+    {
+        if (id <= 0)
+        {
+            _logger.LogWarning("Se intentó eliminar una notificación con un ID inválido: {NotificationId}", id);
+            throw new ValidationException("id", "El ID de la notificación debe ser mayor a 0");
+        }
+
+        try
+        {
+            var result = await _notificationData.DeleteAsync(id);
+
+            if (!result)
+            {
+                _logger.LogInformation("No se encontró la notificación con ID {NotificationId} para eliminar", id);
+                throw new EntityNotFoundException("Notification", id);
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al eliminar la notificación con ID {NotificationId}", id);
+            throw new ExternalServiceException("Base de datos", $"Error al eliminar la notificación con ID {id}", ex);
+        }
+    }
+
+
     // Método para validar el DTO
     private void ValidateNotification(NotificationDto notificationDto)
     {

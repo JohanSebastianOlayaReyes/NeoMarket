@@ -83,6 +83,144 @@ public class CategoryBusiness
         }
     }
 
+    // Método para actualizar una categoría completa
+    public async Task<bool> UpdateCategoryAsync(CategoryDto categoryDto)
+    {
+        try
+        {
+            ValidateCategory(categoryDto);
+
+            var category = MapToEntity(categoryDto);
+
+            var result = await _categoryData.UpdateAsync(category);
+
+            if (!result)
+            {
+                _logger.LogWarning("No se pudo actualizar la categoría con ID {CategoryId}", categoryDto.Id);
+                throw new EntityNotFoundException("Category", categoryDto.Id);
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al actualizar la categoría con ID {CategoryId}", categoryDto.Id);
+            throw new ExternalServiceException("Base de datos", $"Error al actualizar la categoría con ID {categoryDto.Id}", ex);
+        }
+    }
+
+    // Método para actualización parcial de una categoría
+    public async Task<bool> UpdatePartialCategoryAsync(int id, CategoryDto updatedFields)
+    {
+        if (id <= 0)
+        {
+            _logger.LogWarning("Se intentó actualizar una categoría con un ID inválido: {CategoryId}", id);
+            throw new ValidationException("id", "El ID de la categoría debe ser mayor a 0");
+        }
+
+        try
+        {
+            var existingCategory = await _categoryData.GetByIdAsync(id);
+            if (existingCategory == null)
+            {
+                _logger.LogInformation("No se encontró la categoría con ID {CategoryId} para actualización parcial", id);
+                throw new EntityNotFoundException("Category", id);
+            }
+
+            // Solo actualizar campos que estén definidos
+            if (!string.IsNullOrWhiteSpace(updatedFields.NameCategory))
+            {
+                existingCategory.NameCategory = updatedFields.NameCategory;
+            }
+
+            if (!string.IsNullOrWhiteSpace(updatedFields.Description))
+            {
+                existingCategory.Description = updatedFields.Description;
+            }
+
+            var result = await _categoryData.UpdateAsync(existingCategory);
+
+            if (!result)
+            {
+                _logger.LogWarning("No se pudo actualizar parcialmente la categoría con ID {CategoryId}", id);
+                throw new ExternalServiceException("Base de datos", $"Error al actualizar parcialmente la categoría con ID {id}");
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al actualizar parcialmente la categoría con ID {CategoryId}", id);
+            throw new ExternalServiceException("Base de datos", $"Error al actualizar parcialmente la categoría con ID {id}", ex);
+        }
+    }
+
+    // Método para realizar un Soft Delete (eliminación lógica)
+    public async Task<bool> SoftDeleteCategoryAsync(int id)
+    {
+        if (id <= 0)
+        {
+            _logger.LogWarning("Se intentó realizar una eliminación lógica con un ID inválido: {CategoryId}", id);
+            throw new ValidationException("id", "El ID de la categoría debe ser mayor a 0");
+        }
+
+        try
+        {
+            var category = await _categoryData.GetByIdAsync(id);
+            if (category == null)
+            {
+                _logger.LogInformation("No se encontró la categoría con ID {CategoryId} para eliminación lógica", id);
+                throw new EntityNotFoundException("Category", id);
+            }
+
+            category.Status = false; // Asegúrate de que el modelo Category tenga un campo Status
+
+            var result = await _categoryData.UpdateAsync(category);
+
+            if (!result)
+            {
+                _logger.LogWarning("No se pudo realizar la eliminación lógica de la categoría con ID {CategoryId}", id);
+                throw new ExternalServiceException("Base de datos", $"Error al realizar la eliminación lógica de la categoría con ID {id}");
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al realizar la eliminación lógica de la categoría con ID {CategoryId}", id);
+            throw new ExternalServiceException("Base de datos", $"Error al realizar la eliminación lógica de la categoría con ID {id}", ex);
+        }
+    }
+
+    // Método para eliminación física de una categoría
+    public async Task<bool> DeleteCategoryAsync(int id)
+    {
+        if (id <= 0)
+        {
+            _logger.LogWarning("Se intentó eliminar una categoría con un ID inválido: {CategoryId}", id);
+            throw new ValidationException("id", "El ID de la categoría debe ser mayor a 0");
+        }
+
+        try
+        {
+            var result = await _categoryData.DeleteAsync(id);
+
+            if (!result)
+            {
+                _logger.LogInformation("No se encontró la categoría con ID {CategoryId} para eliminar", id);
+                throw new EntityNotFoundException("Category", id);
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al eliminar la categoría con ID {CategoryId}", id);
+            throw new ExternalServiceException("Base de datos", $"Error al eliminar la categoría con ID {id}", ex);
+        }
+    }
+
+
 
     // Método para validar el DTO
     private void ValidateCategory(CategoryDto categoryDto)

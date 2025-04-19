@@ -84,6 +84,69 @@ public class FormBusiness
         }
     }
 
+    // Método para actualizar parcialmente un formulario (UpdatePartial)
+    public async Task<FormDto> UpdatePartialAsync(int id, FormDto updatedFields)
+    {
+        if (id <= 0)
+        {
+            throw new Utilities.Exceptions.ValidationException("id", "El ID del formulario debe ser mayor que cero");
+        }
+
+        try
+        {
+            var existingForm = await _formData.GetByIdAsync(id);
+            if (existingForm == null)
+            {
+                throw new EntityNotFoundException("Form", id);
+            }
+
+            if (!string.IsNullOrWhiteSpace(updatedFields.NameForm))
+                existingForm.NameForm = updatedFields.NameForm;
+
+            if (!string.IsNullOrWhiteSpace(updatedFields.Description))
+                existingForm.Description = updatedFields.Description;
+
+                existingForm.Status = updatedFields.Status;
+
+            await _formData.UpdateAsync(existingForm);
+
+            return MapToDTO(existingForm);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al actualizar parcialmente el formulario con ID: {FormId}", id);
+            throw new ExternalServiceException("Base de datos", $"Error al actualizar el formulario con ID {id}", ex);
+        }
+    }
+
+    // Método para eliminar lógicamente un formulario (SoftDelete)
+    public async Task<bool> SoftDeleteAsync(int id)
+    {
+        if (id <= 0)
+        {
+            throw new Utilities.Exceptions.ValidationException("id", "El ID del formulario debe ser mayor que cero");
+        }
+
+        try
+        {
+            var existingForm = await _formData.GetByIdAsync(id);
+            if (existingForm == null)
+            {
+                throw new EntityNotFoundException("Form", id);
+            }
+
+            existingForm.Status = false;
+            await _formData.UpdateAsync(existingForm);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al eliminar lógicamente el formulario con ID: {FormId}", id);
+            throw new ExternalServiceException("Base de datos", $"Error al eliminar el formulario con ID {id}", ex);
+        }
+    }
+
+
     // Método para validar el DTO
     private void ValidateForm(FormDto formDto)
     {

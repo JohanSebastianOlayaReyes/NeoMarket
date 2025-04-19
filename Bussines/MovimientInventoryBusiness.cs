@@ -82,6 +82,142 @@ public class MovimientInventoryBusiness
         }
     }
 
+    public async Task<bool> UpdateMovimientInventoryAsync(MovimientInventoryDto movimientInventoryDto)
+    {
+        try
+        {
+            ValidateMovimientInventory(movimientInventoryDto);
+
+            var movimientInventory = MapToEntity(movimientInventoryDto);
+
+            var result = await _movimientInventoryData.UpdateAsync(movimientInventory);
+
+            if (!result)
+            {
+                _logger.LogWarning("No se pudo actualizar el movimiento de inventario con ID {MovimientInventoryId}", movimientInventoryDto.Id);
+                throw new EntityNotFoundException("MovimientInventory", movimientInventoryDto.Id);
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al actualizar el movimiento de inventario con ID {MovimientInventoryId}", movimientInventoryDto.Id);
+            throw new ExternalServiceException("Base de datos", $"Error al actualizar el movimiento de inventario con ID {movimientInventoryDto.Id}", ex);
+        }
+    }
+
+    public async Task<bool> UpdatePartialMovimientInventoryAsync(int id, MovimientInventoryDto updatedFields)
+    {
+        if (id <= 0)
+        {
+            _logger.LogWarning("Se intentó actualizar un movimiento de inventario con un ID inválido: {MovimientInventoryId}", id);
+            throw new ValidationException("id", "El ID del movimiento de inventario debe ser mayor a 0");
+        }
+
+        try
+        {
+            var existingMovimientInventory = await _movimientInventoryData.GetByIdAsync(id);
+            if (existingMovimientInventory == null)
+            {
+                _logger.LogInformation("No se encontró el movimiento de inventario con ID {MovimientInventoryId} para actualización parcial", id);
+                throw new EntityNotFoundException("MovimientInventory", id);
+            }
+
+            if (!string.IsNullOrWhiteSpace(updatedFields.Quantity))
+            {
+                existingMovimientInventory.Quantity = updatedFields.Quantity;
+            }
+            if (!string.IsNullOrWhiteSpace(updatedFields.Description))
+            {
+                existingMovimientInventory.Description = updatedFields.Description;
+            }
+            if (updatedFields.Date != existingMovimientInventory.Date)
+            {
+                existingMovimientInventory.Date = updatedFields.Date;
+            }
+
+            var result = await _movimientInventoryData.UpdateAsync(existingMovimientInventory);
+
+            if (!result)
+            {
+                _logger.LogWarning("No se pudo actualizar parcialmente el movimiento de inventario con ID {MovimientInventoryId}", id);
+                throw new ExternalServiceException("Base de datos", $"Error al actualizar parcialmente el movimiento de inventario con ID {id}");
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al actualizar parcialmente el movimiento de inventario con ID {MovimientInventoryId}", id);
+            throw new ExternalServiceException("Base de datos", $"Error al actualizar parcialmente el movimiento de inventario con ID {id}", ex);
+        }
+    }
+
+    public async Task<bool> SoftDeleteMovimientInventoryAsync(int id)
+    {
+        if (id <= 0)
+        {
+            _logger.LogWarning("Se intentó realizar una eliminación lógica con un ID inválido: {MovimientInventoryId}", id);
+            throw new ValidationException("id", "El ID del movimiento de inventario debe ser mayor a 0");
+        }
+
+        try
+        {
+            var movimientInventory = await _movimientInventoryData.GetByIdAsync(id);
+            if (movimientInventory == null)
+            {
+                _logger.LogInformation("No se encontró el movimiento de inventario con ID {MovimientInventoryId} para eliminación lógica", id);
+                throw new EntityNotFoundException("MovimientInventory", id);
+            }
+
+            movimientInventory.Quantity = "0"; // Ejemplo: marcar como eliminado lógicamente
+
+            var result = await _movimientInventoryData.UpdateAsync(movimientInventory);
+
+            if (!result)
+            {
+                _logger.LogWarning("No se pudo realizar la eliminación lógica del movimiento de inventario con ID {MovimientInventoryId}", id);
+                throw new ExternalServiceException("Base de datos", $"Error al realizar la eliminación lógica del movimiento de inventario con ID {id}");
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al realizar la eliminación lógica del movimiento de inventario con ID {MovimientInventoryId}", id);
+            throw new ExternalServiceException("Base de datos", $"Error al realizar la eliminación lógica del movimiento de inventario con ID {id}", ex);
+        }
+    }
+
+    public async Task<bool> DeleteMovimientInventoryAsync(int id)
+    {
+        if (id <= 0)
+        {
+            _logger.LogWarning("Se intentó eliminar un movimiento de inventario con un ID inválido: {MovimientInventoryId}", id);
+            throw new ValidationException("id", "El ID del movimiento de inventario debe ser mayor a 0");
+        }
+
+        try
+        {
+            var result = await _movimientInventoryData.DeleteAsync(id);
+
+            if (!result)
+            {
+                _logger.LogInformation("No se encontró el movimiento de inventario con ID {MovimientInventoryId} para eliminar", id);
+                throw new EntityNotFoundException("MovimientInventory", id);
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al eliminar el movimiento de inventario con ID {MovimientInventoryId}", id);
+            throw new ExternalServiceException("Base de datos", $"Error al eliminar el movimiento de inventario con ID {id}", ex);
+        }
+    }
+
+
     // Método para validar el DTO
     private void ValidateMovimientInventory(MovimientInventoryDto movimientInventoryDto)
     {

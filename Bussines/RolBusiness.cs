@@ -48,7 +48,7 @@ public class RolBusiness
 
         try
         {
-            var rol = await _rolData.GetByIdAsync(id);
+            var rol = await _rolData.GetByidAsync(id);
             if (rol == null)
             {
                 _logger.LogInformation("No se encontró ningún rol con ID: {RolId}", id);
@@ -80,6 +80,152 @@ public class RolBusiness
         {
             _logger.LogError(ex, "Error al crear nuevo rol: {RolNombre}", RolDto?.NameRol ?? "null");
             throw new ExternalServiceException("Base de datos", "Error al crear el rol", ex);
+        }
+    }
+
+    // Método para actualizar un rol existente
+    public async Task<bool> UpdateRolAsync(RolDto rolDto)
+    {
+        try
+        {
+            ValidateRol(rolDto);
+
+            var rol = MapToEntity(rolDto);
+
+            var result = await _rolData.UpdateAsync(rol);
+
+            if (!result)
+            {
+                _logger.LogWarning("No se pudo actualizar el rol con ID {RolId}", rolDto.Id);
+                throw new EntityNotFoundException("Rol", rolDto.Id);
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al actualizar el rol con ID {RolId}", rolDto.Id);
+            throw new ExternalServiceException("Base de datos", $"Error al actualizar el rol con ID {rolDto.Id}", ex);
+        }
+    }
+
+    // Método para actualizar campos específicos de un rol
+    public async Task<bool> UpdatePartialRolAsync(int id, RolDto updatedFields)
+    {
+        if (id <= 0)
+        {
+            _logger.LogWarning("Se intentó actualizar un rol con un ID inválido: {RolId}", id);
+            throw new ValidationException("id", "El ID del rol debe ser mayor a 0");
+        }
+
+        try
+        {
+            // Obtener el rol existente
+            var existingRol = await _rolData.GetByidAsync(id);
+            if (existingRol == null)
+            {
+                _logger.LogInformation("No se encontró el rol con ID {RolId} para actualización parcial", id);
+                throw new EntityNotFoundException("Rol", id);
+            }
+
+            // Actualizar solo los campos proporcionados en el DTO
+            if (!string.IsNullOrWhiteSpace(updatedFields.NameRol))
+            {
+                existingRol.NameRol = updatedFields.NameRol;
+            }
+            if (!string.IsNullOrWhiteSpace(updatedFields.Description))
+            {
+                existingRol.Description = updatedFields.Description;
+            }
+            if (updatedFields.Status != existingRol.Status) // Si Active es un booleano, siempre se envía un valor
+            {
+                existingRol.Status = updatedFields.Status;
+            }
+
+            // Guardar los cambios
+            var result = await _rolData.UpdateAsync(existingRol);
+
+            if (!result)
+            {
+                _logger.LogWarning("No se pudo actualizar parcialmente el rol con ID {RolId}", id);
+                throw new ExternalServiceException("Base de datos", $"Error al actualizar parcialmente el rol con ID {id}");
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al actualizar parcialmente el rol con ID {RolId}", id);
+            throw new ExternalServiceException("Base de datos", $"Error al actualizar parcialmente el rol con ID {id}", ex);
+        }
+    }
+
+
+    // Método para realizar una eliminación lógica de un rol (marcar como inactivo)
+    public async Task<bool> SoftDeleteRolAsync(int id)
+    {
+        if (id <= 0)
+        {
+            _logger.LogWarning("Se intentó realizar una eliminación lógica con un ID inválido: {RolId}", id);
+            throw new Utilities.Exceptions.ValidationException("id", "El ID del rol debe ser mayor a 0");
+        }
+
+        try
+        {
+            // Obtener el rol por ID
+            var rol = await _rolData.GetByidAsync(id);
+            if (rol == null)
+            {
+                _logger.LogInformation("No se encontró el rol con ID {RolId} para eliminación lógica", id);
+                throw new EntityNotFoundException("Rol", id);
+            }
+
+            // Marcar el rol como inactivo
+            rol.Status = false;
+
+            // Actualizar el rol en la base de datos
+            var result = await _rolData.UpdateAsync(rol);
+
+            if (!result)
+            {
+                _logger.LogWarning("No se pudo realizar la eliminación lógica del rol con ID {RolId}", id);
+                throw new ExternalServiceException("Base de datos", $"Error al realizar la eliminación lógica del rol con ID {id}");
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al realizar la eliminación lógica del rol con ID {RolId}", id);
+            throw new ExternalServiceException("Base de datos", $"Error al realizar la eliminación lógica del rol con ID {id}", ex);
+        }
+    }
+
+    // Método para eliminar un rol por su ID
+    public async Task<bool> DeleteRolAsync(int id)
+    {
+        if (id <= 0)
+        {
+            _logger.LogWarning("Se intentó eliminar un rol con un ID inválido: {RolId}", id);
+            throw new Utilities.Exceptions.ValidationException("id", "El ID del rol debe ser mayor a 0");
+        }
+
+        try
+        {
+            var result = await _rolData.DeleteAsync(id);
+
+            if (!result)
+            {
+                _logger.LogInformation("No se encontró el rol con ID {RolId} para eliminar", id);
+                throw new EntityNotFoundException("Rol", id);
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al eliminar el rol con ID {RolId}", id);
+            throw new ExternalServiceException("Base de datos", $"Error al eliminar el rol con ID {id}", ex);
         }
     }
 

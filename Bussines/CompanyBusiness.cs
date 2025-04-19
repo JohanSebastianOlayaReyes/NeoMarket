@@ -83,6 +83,153 @@ public class CompanyBusiness
         }
     }
 
+    // Método para actualizar completamente una compañía
+    public async Task<bool> UpdateCompanyAsync(CompanyDto companyDto)
+    {
+        try
+        {
+            ValidateCompany(companyDto);
+
+            var company = MapToEntity(companyDto);
+            var result = await _companyData.UpdateAsync(company);
+
+            if (!result)
+            {
+                _logger.LogWarning("No se pudo actualizar la compañía con ID {CompanyId}", companyDto.Id);
+                throw new EntityNotFoundException("Company", companyDto.Id);
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al actualizar la compañía con ID {CompanyId}", companyDto.Id);
+            throw new ExternalServiceException("Base de datos", $"Error al actualizar la compañía con ID {companyDto.Id}", ex);
+        }
+    }
+
+    // Método para actualización parcial de una compañía
+    public async Task<bool> UpdatePartialCompanyAsync(int id, CompanyDto updatedFields)
+    {
+        if (id <= 0)
+        {
+            _logger.LogWarning("Se intentó actualizar una compañía con un ID inválido: {CompanyId}", id);
+            throw new ValidationException("id", "El ID de la compañía debe ser mayor a 0");
+        }
+
+        try
+        {
+            var existingCompany = await _companyData.GetByIdAsync(id);
+            if (existingCompany == null)
+            {
+                _logger.LogInformation("No se encontró la compañía con ID {CompanyId} para actualización parcial", id);
+                throw new EntityNotFoundException("Company", id);
+            }
+
+            if (!string.IsNullOrWhiteSpace(updatedFields.NameCompany))
+                existingCompany.NameCompany = updatedFields.NameCompany;
+
+            if (!string.IsNullOrWhiteSpace(updatedFields.Description))
+                existingCompany.Description = updatedFields.Description;
+
+            if (updatedFields.PhoneCompany != 0)
+                existingCompany.PhoneCompany = updatedFields.PhoneCompany;
+
+            if (!string.IsNullOrWhiteSpace(updatedFields.EmailCompany))
+                existingCompany.EmailCompany = updatedFields.EmailCompany;
+
+            if (!string.IsNullOrWhiteSpace(updatedFields.Logo))
+                existingCompany.Logo = updatedFields.Logo;
+
+            if (!string.IsNullOrWhiteSpace(updatedFields.NitCompany))
+                existingCompany.NitCompany = updatedFields.NitCompany;
+
+            if (updatedFields.Status != existingCompany.Status)
+                existingCompany.Status = updatedFields.Status;
+
+            var result = await _companyData.UpdateAsync(existingCompany);
+
+            if (!result)
+            {
+                _logger.LogWarning("No se pudo actualizar parcialmente la compañía con ID {CompanyId}", id);
+                throw new ExternalServiceException("Base de datos", $"Error al actualizar parcialmente la compañía con ID {id}");
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al actualizar parcialmente la compañía con ID {CompanyId}", id);
+            throw new ExternalServiceException("Base de datos", $"Error al actualizar parcialmente la compañía con ID {id}", ex);
+        }
+    }
+
+    // Método para realizar Soft Delete (eliminación lógica)
+    public async Task<bool> SoftDeleteCompanyAsync(int id)
+    {
+        if (id <= 0)
+        {
+            _logger.LogWarning("Se intentó realizar una eliminación lógica con un ID inválido: {CompanyId}", id);
+            throw new ValidationException("id", "El ID de la compañía debe ser mayor a 0");
+        }
+
+        try
+        {
+            var company = await _companyData.GetByIdAsync(id);
+            if (company == null)
+            {
+                _logger.LogInformation("No se encontró la compañía con ID {CompanyId} para eliminación lógica", id);
+                throw new EntityNotFoundException("Company", id);
+            }
+
+            company.Status = false;
+
+            var result = await _companyData.UpdateAsync(company);
+
+            if (!result)
+            {
+                _logger.LogWarning("No se pudo realizar la eliminación lógica de la compañía con ID {CompanyId}", id);
+                throw new ExternalServiceException("Base de datos", $"Error al realizar la eliminación lógica de la compañía con ID {id}");
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al realizar la eliminación lógica de la compañía con ID {CompanyId}", id);
+            throw new ExternalServiceException("Base de datos", $"Error al realizar la eliminación lógica de la compañía con ID {id}", ex);
+        }
+    }
+
+    // Método para eliminar físicamente una compañía
+    public async Task<bool> DeleteCompanyAsync(int id)
+    {
+        if (id <= 0)
+        {
+            _logger.LogWarning("Se intentó eliminar una compañía con un ID inválido: {CompanyId}", id);
+            throw new ValidationException("id", "El ID de la compañía debe ser mayor a 0");
+        }
+
+        try
+        {
+            var result = await _companyData.DeleteAsync(id);
+
+            if (!result)
+            {
+                _logger.LogInformation("No se encontró la compañía con ID {CompanyId} para eliminar", id);
+                throw new EntityNotFoundException("Company", id);
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al eliminar la compañía con ID {CompanyId}", id);
+            throw new ExternalServiceException("Base de datos", $"Error al eliminar la compañía con ID {id}", ex);
+        }
+    }
+
+
     // Método para validar el DTO
     private void ValidateCompany(CompanyDto companyDto)
     {

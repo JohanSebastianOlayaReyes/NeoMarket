@@ -81,6 +81,46 @@ public class ImageItemBusiness
         }
     }
 
+    public async Task<ImageItemDTO> UpdateImageItemAsync(int id, ImageItemDTO updatedFields)
+    {
+        if (id <= 0)
+        {
+            _logger.LogWarning("Se intentó actualizar un ImageItem con ID inválido: {ImageItemId}", id);
+            throw new ValidationException("id", "El ID del ImageItem debe ser mayor que cero");
+        }
+
+        try
+        {
+            var existingImageItem = await _imageItemData.GetByIdAsync(id);
+            if (existingImageItem == null)
+            {
+                _logger.LogInformation("No se encontró ningún ImageItem con ID: {ImageItemId}", id);
+                throw new EntityNotFoundException("ImageItem", id);
+            }
+
+            // Actualizar solo los campos proporcionados
+            if (!string.IsNullOrWhiteSpace(updatedFields.UrlImage))
+                existingImageItem.UrlImage = updatedFields.UrlImage;
+
+            existingImageItem.Status = updatedFields.Status;
+
+            // Ejecutar la actualización
+            var success = await _imageItemData.UpdateAsync(existingImageItem);
+            if (!success)
+            {
+                throw new ExternalServiceException("Base de datos", "No se pudo actualizar el ImageItem");
+            }
+
+            return MapToDTO(existingImageItem);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al actualizar el ImageItem con ID: {ImageItemId}", id);
+            throw new ExternalServiceException("Base de datos", $"Error al actualizar el ImageItem con ID {id}", ex);
+        }
+    }
+
+
     // Método para validar el DTO
     private void ValidateImageItem(ImageItemDTO imageItemDto)
     {

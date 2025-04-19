@@ -117,5 +117,10 @@ namespace Data
                 return false;
             }
         }
+
+        public async Task<bool> DeleteAsync(Inventory inventory)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

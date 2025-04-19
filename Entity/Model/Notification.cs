@@ -17,6 +17,5 @@ namespace Entity.Model
         public int IdUser { get; set; }
         public User User { get; set; }
 
-        public int IdReference { get; set; }
     }
 }

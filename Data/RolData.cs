@@ -33,15 +33,11 @@ namespace Data
         /// <returns>Lista de Roles.</returns>
         public async Task<IEnumerable<Rol>> GetAllAsync()
         {
-            return await _context.Set<Rol>().ToListAsync();
+            IEnumerable<Rol> lstRoles = await _context.Set<Rol>().ToListAsync();
+            return lstRoles;
         }
 
-        /// <summary>
-        /// Obtiene un Rol por su ID.
-        /// </summary>
-        /// <param name="id">Identificador único del Rol.</param>
-        /// <returns>El Rol con el ID especificado.</returns>
-        public async Task<Rol?> GetByIdAsync(int id)
+        public async Task<Rol?> GetByidAsync(int id)
         {
             try
             {
@@ -49,9 +45,10 @@ namespace Data
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error al obtener Rol con ID {id}");
-                throw; // Re-lanza la excepción para que sea manejada en capas superiores
+                _logger.LogError($"Error al obtener rol con ID{id}");
+                throw;// Re-lanza la excepcion para que sea manejada en capas superiores
             }
+
         }
 
         /// <summary>

@@ -82,6 +82,170 @@ public class SedeBusiness
         }
     }
 
+    /// <summary>
+    /// Actualiza una sede existente en la base de datos.
+    /// </summary>
+    /// <param name="sedeDto">El DTO de la sede con los datos actualizados.</param>
+    /// <returns>True si la actualización fue exitosa, False en caso contrario.</returns>
+    public async Task<bool> UpdateSedeAsync(SedeDto sedeDto)
+    {
+        try
+        {
+            ValidateSede(sedeDto);
+
+            var sede = MapToEntity(sedeDto);
+
+            var result = await _sedeData.UpdateAsync(sede);
+
+            if (!result)
+            {
+                _logger.LogWarning("No se pudo actualizar la sede con ID {SedeId}", sedeDto.Id);
+                throw new EntityNotFoundException("Sede", sedeDto.Id);
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al actualizar la sede con ID {SedeId}", sedeDto.Id);
+            throw new ExternalServiceException("Base de datos", $"Error al actualizar la sede con ID {sedeDto.Id}", ex);
+        }
+    }
+
+    /// <summary>
+    /// Actualiza campos específicos de una sede existente en la base de datos.
+    /// </summary>
+    /// <param name="id">El ID de la sede a actualizar.</param>
+    /// <param name="updatedFields">El DTO con los campos actualizados.</param>
+    /// <returns>True si la actualización fue exitosa, False en caso contrario.</returns>
+    public async Task<bool> UpdatePartialSedeAsync(int id, SedeDto updatedFields)
+    {
+        if (id <= 0)
+        {
+            _logger.LogWarning("Se intentó actualizar una sede con un ID inválido: {SedeId}", id);
+            throw new ValidationException("id", "El ID de la sede debe ser mayor a 0");
+        }
+
+        try
+        {
+            var existingSede = await _sedeData.GetByIdAsync(id);
+            if (existingSede == null)
+            {
+                _logger.LogInformation("No se encontró la sede con ID {SedeId} para actualización parcial", id);
+                throw new EntityNotFoundException("Sede", id);
+            }
+
+            if (!string.IsNullOrWhiteSpace(updatedFields.NameSede))
+            {
+                existingSede.NameSede = updatedFields.NameSede;
+            }
+            if (!string.IsNullOrWhiteSpace(updatedFields.CodeSede))
+            {
+                existingSede.CodeSede = updatedFields.CodeSede;
+            }
+            if (!string.IsNullOrWhiteSpace(updatedFields.AddressSede))
+            {
+                existingSede.AddressSede = updatedFields.AddressSede;
+            }
+            if (!string.IsNullOrWhiteSpace(updatedFields.EmailSede))
+            {
+                existingSede.EmailSede = updatedFields.EmailSede;
+            }
+            if (updatedFields.Status != existingSede.Status)
+            {
+                existingSede.Status = updatedFields.Status;
+            }
+
+            var result = await _sedeData.UpdateAsync(existingSede);
+
+            if (!result)
+            {
+                _logger.LogWarning("No se pudo actualizar parcialmente la sede con ID {SedeId}", id);
+                throw new ExternalServiceException("Base de datos", $"Error al actualizar parcialmente la sede con ID {id}");
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al actualizar parcialmente la sede con ID {SedeId}", id);
+            throw new ExternalServiceException("Base de datos", $"Error al actualizar parcialmente la sede con ID {id}", ex);
+        }
+    }
+
+    /// <summary>
+    /// Realiza una eliminación lógica de una sede, marcándola como inactiva.
+    /// </summary>
+    /// <param name="id">El ID de la sede a eliminar lógicamente.</param>
+    /// <returns>True si la operación fue exitosa, False en caso contrario.</returns>
+    public async Task<bool> SoftDeleteSedeAsync(int id)
+    {
+        if (id <= 0)
+        {
+            _logger.LogWarning("Se intentó realizar una eliminación lógica con un ID inválido: {SedeId}", id);
+            throw new ValidationException("id", "El ID de la sede debe ser mayor a 0");
+        }
+
+        try
+        {
+            var sede = await _sedeData.GetByIdAsync(id);
+            if (sede == null)
+            {
+                _logger.LogInformation("No se encontró la sede con ID {SedeId} para eliminación lógica", id);
+                throw new EntityNotFoundException("Sede", id);
+            }
+
+            sede.Status = false; // Marcar como inactiva
+
+            var result = await _sedeData.UpdateAsync(sede);
+
+            if (!result)
+            {
+                _logger.LogWarning("No se pudo realizar la eliminación lógica de la sede con ID {SedeId}", id);
+                throw new ExternalServiceException("Base de datos", $"Error al realizar la eliminación lógica de la sede con ID {id}");
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al realizar la eliminación lógica de la sede con ID {SedeId}", id);
+            throw new ExternalServiceException("Base de datos", $"Error al realizar la eliminación lógica de la sede con ID {id}", ex);
+        }
+    }
+
+    /// <summary>
+    /// Elimina una sede de la base de datos por su ID.
+    /// </summary>
+    /// <param name="id">El ID de la sede a eliminar.</param>
+    /// <returns>True si la eliminación fue exitosa, False en caso contrario.</returns>
+    public async Task<bool> DeleteSedeAsync(int id)
+    {
+        if (id <= 0)
+        {
+            _logger.LogWarning("Se intentó eliminar una sede con un ID inválido: {SedeId}", id);
+            throw new ValidationException("id", "El ID de la sede debe ser mayor a 0");
+        }
+
+        try
+        {
+            var result = await _sedeData.DeleteAsync(id);
+
+            if (!result)
+            {
+                _logger.LogInformation("No se encontró la sede con ID {SedeId} para eliminar", id);
+                throw new EntityNotFoundException("Sede", id);
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al eliminar la sede con ID {SedeId}", id);
+            throw new ExternalServiceException("Base de datos", $"Error al eliminar la sede con ID {id}", ex);
+        }
+    }
+
     // Método para validar el DTO
     private void ValidateSede(SedeDto sedeDto)
     {

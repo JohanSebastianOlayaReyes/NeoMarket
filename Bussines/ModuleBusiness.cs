@@ -82,6 +82,138 @@ public class ModuleBusiness
         }
     }
 
+    public async Task<bool> UpdateModuleAsync(ModuleDto moduleDto)
+    {
+        try
+        {
+            ValidateModule(moduleDto);
+
+            var module = MapToEntity(moduleDto);
+
+            var result = await _moduleData.UpdateAsync(module);
+
+            if (!result)
+            {
+                _logger.LogWarning("No se pudo actualizar el módulo con ID {ModuleId}", moduleDto.Id);
+                throw new EntityNotFoundException("Module", moduleDto.Id);
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al actualizar el módulo con ID {ModuleId}", moduleDto.Id);
+            throw new ExternalServiceException("Base de datos", $"Error al actualizar el módulo con ID {moduleDto.Id}", ex);
+        }
+    }
+
+    public async Task<bool> UpdatePartialModuleAsync(int id, ModuleDto updatedFields)
+    {
+        if (id <= 0)
+        {
+            _logger.LogWarning("Se intentó actualizar un módulo con un ID inválido: {ModuleId}", id);
+            throw new ValidationException("id", "El ID del módulo debe ser mayor a 0");
+        }
+
+        try
+        {
+            var existingModule = await _moduleData.GetByIdAsync(id);
+            if (existingModule == null)
+            {
+                _logger.LogInformation("No se encontró el módulo con ID {ModuleId} para actualización parcial", id);
+                throw new EntityNotFoundException("Module", id);
+            }
+
+            if (!string.IsNullOrWhiteSpace(updatedFields.NameModule))
+            {
+                existingModule.NameModule = updatedFields.NameModule;
+            }
+            if (updatedFields.status != existingModule.status)
+            {
+                existingModule.status = updatedFields.status;
+            }
+
+            var result = await _moduleData.UpdateAsync(existingModule);
+
+            if (!result)
+            {
+                _logger.LogWarning("No se pudo actualizar parcialmente el módulo con ID {ModuleId}", id);
+                throw new ExternalServiceException("Base de datos", $"Error al actualizar parcialmente el módulo con ID {id}");
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al actualizar parcialmente el módulo con ID {ModuleId}", id);
+            throw new ExternalServiceException("Base de datos", $"Error al actualizar parcialmente el módulo con ID {id}", ex);
+        }
+    }
+
+    public async Task<bool> SoftDeleteModuleAsync(int id)
+    {
+        if (id <= 0)
+        {
+            _logger.LogWarning("Se intentó realizar una eliminación lógica con un ID inválido: {ModuleId}", id);
+            throw new ValidationException("id", "El ID del módulo debe ser mayor a 0");
+        }
+
+        try
+        {
+            var module = await _moduleData.GetByIdAsync(id);
+            if (module == null)
+            {
+                _logger.LogInformation("No se encontró el módulo con ID {ModuleId} para eliminación lógica", id);
+                throw new EntityNotFoundException("Module", id);
+            }
+
+            module.status = false;
+
+            var result = await _moduleData.UpdateAsync(module);
+
+            if (!result)
+            {
+                _logger.LogWarning("No se pudo realizar la eliminación lógica del módulo con ID {ModuleId}", id);
+                throw new ExternalServiceException("Base de datos", $"Error al realizar la eliminación lógica del módulo con ID {id}");
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al realizar la eliminación lógica del módulo con ID {ModuleId}", id);
+            throw new ExternalServiceException("Base de datos", $"Error al realizar la eliminación lógica del módulo con ID {id}", ex);
+        }
+    }
+
+    public async Task<bool> DeleteModuleAsync(int id)
+    {
+        if (id <= 0)
+        {
+            _logger.LogWarning("Se intentó eliminar un módulo con un ID inválido: {ModuleId}", id);
+            throw new ValidationException("id", "El ID del módulo debe ser mayor a 0");
+        }
+
+        try
+        {
+            var result = await _moduleData.DeleteAsync(id);
+
+            if (!result)
+            {
+                _logger.LogInformation("No se encontró el módulo con ID {ModuleId} para eliminar", id);
+                throw new EntityNotFoundException("Module", id);
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al eliminar el módulo con ID {ModuleId}", id);
+            throw new ExternalServiceException("Base de datos", $"Error al eliminar el módulo con ID {id}", ex);
+        }
+    }
+
+
     // Método para validar el DTO
     private void ValidateModule(ModuleDto moduleDto)
     {
