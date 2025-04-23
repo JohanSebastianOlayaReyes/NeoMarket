@@ -121,5 +121,169 @@ namespace Web.Controllers
                 return StatusCode(500, new { message = ex.Message });
             }
         }
+
+        /// <summary>
+        /// Actualiza una empresa existente en el sistema.
+        /// </summary>
+        /// <param name="id">ID de la empresa a actualizar</param>
+        /// <param name="companyDto">Datos actualizados de la empresa</param>
+        /// <returns>Resultado de la operación</returns>
+        /// <response code="200">Empresa actualizada correctamente</response>
+        /// <response code="400">Datos de la empresa no válidos</response>
+        /// <response code="404">Empresa no encontrada</response>
+        /// <response code="500">Error interno del servidor</response>
+        [HttpPut("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> UpdateCompany(int id, [FromBody] CompanyDto companyDto)
+        {
+            if (id != companyDto.Id)
+            {
+                return BadRequest(new { message = "El ID de la empresa no coincide con el ID proporcionado en el cuerpo de la solicitud." });
+            }
+
+            try
+            {
+                var result = await _companyBusiness.UpdateCompanyAsync(companyDto);
+                return Ok(new { message = "Empresa actualizada correctamente", success = result });
+            }
+            catch (ValidationException ex)
+            {
+                _logger.LogWarning(ex, "Validación fallida al actualizar la empresa con ID: {CompanyId}", id);
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (EntityNotFoundException ex)
+            {
+                _logger.LogInformation(ex, "Empresa no encontrada con ID: {CompanyId}", id);
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error al actualizar la empresa con ID: {CompanyId}", id);
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Actualiza campos específicos de una empresa existente en el sistema.
+        /// </summary>
+        /// <param name="id">ID de la empresa a actualizar</param>
+        /// <param name="updatedFields">Campos a actualizar</param>
+        /// <returns>Resultado de la operación</returns>
+        /// <response code="200">Empresa actualizada correctamente</response>
+        /// <response code="400">Datos no válidos</response>
+        /// <response code="404">Empresa no encontrada</response>
+        /// <response code="500">Error interno del servidor</response>
+        [HttpPatch("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> UpdatePartialCompany(int id, [FromBody] CompanyDto updatedFields)
+        {
+            if (updatedFields == null)
+            {
+                return BadRequest(new { message = "Los datos proporcionados no pueden ser nulos." });
+            }
+
+            try
+            {
+                var result = await _companyBusiness.UpdatePartialCompanyAsync(id, updatedFields);
+                return Ok(new { message = "Empresa actualizada parcialmente correctamente", success = result });
+            }
+            catch (ValidationException ex)
+            {
+                _logger.LogWarning(ex, "Validación fallida al actualizar parcialmente la empresa con ID: {CompanyId}", id);
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (EntityNotFoundException ex)
+            {
+                _logger.LogInformation(ex, "Empresa no encontrada con ID: {CompanyId}", id);
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error al actualizar parcialmente la empresa con ID: {CompanyId}", id);
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Realiza una eliminación lógica de una empresa (marca como inactiva).
+        /// </summary>
+        /// <param name="id">ID de la empresa a eliminar lógicamente</param>
+        /// <returns>Resultado de la operación</returns>
+        /// <response code="200">Empresa marcada como inactiva correctamente</response>
+        /// <response code="400">ID proporcionado no válido</response>
+        /// <response code="404">Empresa no encontrada</response>
+        /// <response code="500">Error interno del servidor</response>
+        [HttpDelete("soft-delete/{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> SoftDeleteCompany(int id)
+        {
+            if (id <= 0)
+            {
+                return BadRequest(new { message = "El ID de la empresa debe ser mayor a 0." });
+            }
+
+            try
+            {
+                var result = await _companyBusiness.SoftDeleteCompanyAsync(id);
+                return Ok(new { message = "Empresa marcada como inactiva correctamente", success = result });
+            }
+            catch (EntityNotFoundException ex)
+            {
+                _logger.LogInformation(ex, "Empresa no encontrada con ID: {CompanyId}", id);
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error al realizar la eliminación lógica de la empresa con ID: {CompanyId}", id);
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Elimina una empresa del sistema.
+        /// </summary>
+        /// <param name="id">ID de la empresa a eliminar</param>
+        /// <returns>Resultado de la operación</returns>
+        /// <response code="200">Empresa eliminada correctamente</response>
+        /// <response code="400">ID proporcionado no válido</response>
+        /// <response code="404">Empresa no encontrada</response>
+        /// <response code="500">Error interno del servidor</response>
+        [HttpDelete("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> DeleteCompany(int id)
+        {
+            if (id <= 0)
+            {
+                return BadRequest(new { message = "El ID de la empresa debe ser mayor a 0." });
+            }
+
+            try
+            {
+                var result = await _companyBusiness.DeleteCompanyAsync(id);
+                return Ok(new { message = "Empresa eliminada correctamente", success = result });
+            }
+            catch (EntityNotFoundException ex)
+            {
+                _logger.LogInformation(ex, "Empresa no encontrada con ID: {CompanyId}", id);
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error al eliminar la empresa con ID: {CompanyId}", id);
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
     }
 }

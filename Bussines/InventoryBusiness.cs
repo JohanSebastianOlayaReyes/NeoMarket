@@ -142,7 +142,7 @@ public class InventoryBusiness
             }
 
             // Marcar el inventario como eliminado (o inactivo)
-            inventory.Status = false; // O el estado que decidas utilizar para indicar eliminación
+            inventory.Status = false; 
 
             var success = await _inventoryData.UpdateAsync(inventory);
             return success;
@@ -244,5 +244,10 @@ public class InventoryBusiness
             inventoriesDto.Add(MapToDTO(inventory));
         }
         return inventoriesDto;
+    }
+
+    public async Task UpdateAsync(InventoryDto inventoryDto)
+    {
+        throw new NotImplementedException();
     }
 }

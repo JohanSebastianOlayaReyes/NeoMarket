@@ -196,4 +196,39 @@ public class FormBusiness
         }
         return formDto;
     }
+
+    public async Task UpdateFormAsync(FormDto formDto)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task DeleteFormAsync(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task SoftDeleteFormAsync(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task UpdatePartialFormAsync(int id, FormDto updatedFields)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task UpdatePartialAsync(int id, Dictionary<string, object> fields)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task UpdateAsync(int id, FormDto formDto)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task DeleteformAsync(int id)
+    {
+        throw new NotImplementedException();
+    }
 }

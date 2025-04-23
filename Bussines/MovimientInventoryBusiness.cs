@@ -241,7 +241,8 @@ public class MovimientInventoryBusiness
             Id = movimientInventory.Id,
             Quantity = movimientInventory.Quantity,
             Description = movimientInventory.Description,
-            Date = movimientInventory.Date
+            Date = movimientInventory.Date,
+            TypeMoviment = movimientInventory.TypeMovement
         };
     }
 
@@ -253,7 +254,8 @@ public class MovimientInventoryBusiness
             Id = movimientInventoryDto.Id,
             Quantity = movimientInventoryDto.Quantity,
             Description = movimientInventoryDto.Description,
-            Date = movimientInventoryDto.Date
+            Date = movimientInventoryDto.Date,
+            TypeMovement = movimientInventoryDto.TypeMoviment
         };
     }
 

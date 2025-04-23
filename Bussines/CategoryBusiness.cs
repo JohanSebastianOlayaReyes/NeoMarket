@@ -173,7 +173,7 @@ public class CategoryBusiness
                 throw new EntityNotFoundException("Category", id);
             }
 
-            category.Status = false; // Asegúrate de que el modelo Category tenga un campo Status
+            //category.Status = false; // Asegúrate de que el modelo Category tenga un campo Status
 
             var result = await _categoryData.UpdateAsync(category);
 

@@ -172,7 +172,7 @@ public class BuyoutBusiness
                 throw new EntityNotFoundException("Compra", id);
             }
 
-            buyout.Status = false;
+           // buyout.Status = false;
 
             var result = await _buyoutData.UpdateAsync(buyout);
 

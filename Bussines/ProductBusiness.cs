@@ -266,7 +266,10 @@ public class ProductBusiness
             NameProduct = product.NameProduct,
             Description = product.Description,
             Price = product.Price,
-            Status = product.Status
+            Status = product.Status,
+            IdInventory = product.IdInventory,
+            IdCategory = product.IdCategory,
+            IdImageItem = product.IdImageItem
         };
     }
 
@@ -279,7 +282,10 @@ public class ProductBusiness
             NameProduct = productDto.NameProduct,
             Description = productDto.Description,
             Price = productDto.Price,
-            Status = productDto.Status
+            Status = productDto.Status,
+            IdInventory = productDto.IdInventory,
+            IdCategory = productDto.IdCategory,
+            IdImageItem = productDto.IdImageItem
         };
     }
 

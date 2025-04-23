@@ -121,5 +121,156 @@ namespace Web.Controllers
                 return StatusCode(500, new { message = ex.Message });
             }
         }
+
+        /// <summary>
+        /// Actualiza un módulo existente en el sistema
+        /// </summary>
+        /// <param name="id">ID del módulo a actualizar</param>
+        /// <param name="moduleDto">Datos actualizados del módulo</param>
+        /// <returns>Resultado de la operación</returns>
+        /// <response code="200">Módulo actualizado correctamente</response>
+        /// <response code="400">Datos del módulo no válidos</response>
+        /// <response code="404">Módulo no encontrado</response>
+        /// <response code="500">Error interno del servidor</response>
+        [HttpPut("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> UpdateModule(int id, [FromBody] ModuleDto moduleDto)
+        {
+            if (id != moduleDto.Id)
+            {
+                return BadRequest(new { message = "El ID del módulo no coincide con el ID proporcionado en el cuerpo de la solicitud." });
+            }
+
+            try
+            {
+                var result = await _moduleBusiness.UpdateModuleAsync(moduleDto);
+                return Ok(new { message = "Módulo actualizado correctamente", success = result });
+            }
+            catch (ValidationException ex)
+            {
+                _logger.LogWarning(ex, "Validación fallida al actualizar el módulo con ID: {ModuleId}", id);
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (EntityNotFoundException ex)
+            {
+                _logger.LogInformation(ex, "Módulo no encontrado con ID: {ModuleId}", id);
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error al actualizar el módulo con ID: {ModuleId}", id);
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Actualiza parcialmente los campos de un módulo existente
+        /// </summary>
+        /// <param name="id">ID del módulo a actualizar</param>
+        /// <param name="updatedFields">Campos a actualizar</param>
+        /// <returns>Resultado de la operación</returns>
+        /// <response code="200">Módulo actualizado parcialmente correctamente</response>
+        /// <response code="400">Datos no válidos</response>
+        /// <response code="404">Módulo no encontrado</response>
+        /// <response code="500">Error interno del servidor</response>
+        [HttpPatch("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> UpdatePartialModule(int id, [FromBody] ModuleDto updatedFields)
+        {
+            if (updatedFields == null)
+            {
+                return BadRequest(new { message = "Los datos proporcionados no pueden ser nulos." });
+            }
+
+            try
+            {
+                var result = await _moduleBusiness.UpdatePartialModuleAsync(id, updatedFields);
+                return Ok(new { message = "Módulo actualizado parcialmente correctamente", success = result });
+            }
+            catch (ValidationException ex)
+            {
+                _logger.LogWarning(ex, "Validación fallida al actualizar parcialmente el módulo con ID: {ModuleId}", id);
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (EntityNotFoundException ex)
+            {
+                _logger.LogInformation(ex, "Módulo no encontrado con ID: {ModuleId}", id);
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error al actualizar parcialmente el módulo con ID: {ModuleId}", id);
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Elimina un módulo lógicamente (lo marca como inactivo)
+        /// </summary>
+        /// <param name="id">ID del módulo a eliminar lógicamente</param>
+        /// <returns>Resultado de la operación</returns>
+        /// <response code="200">Módulo eliminado lógicamente</response>
+        /// <response code="404">Módulo no encontrado</response>
+        /// <response code="500">Error interno del servidor</response>
+        [HttpDelete("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> SoftDeleteModule(int id)
+        {
+            try
+            {
+                var result = await _moduleBusiness.SoftDeleteModuleAsync(id);
+                return Ok(new { message = "Módulo eliminado lógicamente", success = result });
+            }
+            catch (EntityNotFoundException ex)
+            {
+                _logger.LogInformation(ex, "Módulo no encontrado con ID: {ModuleId}", id);
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error al eliminar el módulo con ID: {ModuleId} lógicamente", id);
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Elimina un módulo permanentemente del sistema
+        /// </summary>
+        /// <param name="id">ID del módulo a eliminar</param>
+        /// <returns>Resultado de la operación</returns>
+        /// <response code="200">Módulo eliminado permanentemente</response>
+        /// <response code="404">Módulo no encontrado</response>
+        /// <response code="500">Error interno del servidor</response>
+        [HttpDelete("permanent/{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> DeleteModule(int id)
+        {
+            try
+            {
+                var result = await _moduleBusiness.DeleteModuleAsync(id);
+                return Ok(new { message = "Módulo eliminado permanentemente", success = result });
+            }
+            catch (EntityNotFoundException ex)
+            {
+                _logger.LogInformation(ex, "Módulo no encontrado con ID: {ModuleId}", id);
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error al eliminar el módulo con ID: {ModuleId} permanentemente", id);
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
     }
 }

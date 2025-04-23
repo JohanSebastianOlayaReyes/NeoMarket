@@ -121,5 +121,170 @@ namespace Web.Controllers
                 return StatusCode(500, new { message = ex.Message });
             }
         }
+
+        /// <summary>
+        /// Actualiza una notificación existente en el sistema
+        /// </summary>
+        /// <param name="id">ID de la notificación a actualizar</param>
+        /// <param name="notificationDto">Datos actualizados de la notificación</param>
+        /// <returns>Resultado de la operación</returns>
+        /// <response code="200">Notificación actualizada correctamente</response>
+        /// <response code="400">Datos de la notificación no válidos</response>
+        /// <response code="404">Notificación no encontrada</response>
+        /// <response code="500">Error interno del servidor</response>
+        [HttpPut("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> UpdateNotification(int id, [FromBody] NotificationDto notificationDto)
+        {
+            if (id != notificationDto.Id)
+            {
+                return BadRequest(new { message = "El ID de la notificación no coincide con el ID proporcionado en el cuerpo de la solicitud." });
+            }
+
+            try
+            {
+                var result = await _notificationBusiness.UpdateNotificationAsync(notificationDto);
+                return Ok(new { message = "Notificación actualizada correctamente", success = result });
+            }
+            catch (ValidationException ex)
+            {
+                _logger.LogWarning(ex, "Validación fallida al actualizar la notificación con ID: {NotificationId}", id);
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (EntityNotFoundException ex)
+            {
+                _logger.LogInformation(ex, "Notificación no encontrada con ID: {NotificationId}", id);
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error al actualizar la notificación con ID: {NotificationId}", id);
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Actualiza campos específicos de una notificación
+        /// </summary>
+        /// <param name="id">ID de la notificación a actualizar</param>
+        /// <param name="updatedFields">Campos a actualizar</param>
+        /// <returns>Resultado de la operación</returns>
+        /// <response code="200">Notificación actualizada correctamente</response>
+        /// <response code="400">Datos no válidos</response>
+        /// <response code="404">Notificación no encontrada</response>
+        /// <response code="500">Error interno del servidor</response>
+        [HttpPatch("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> UpdatePartialNotification(int id, [FromBody] NotificationDto updatedFields)
+        {
+            if (updatedFields == null)
+            {
+                return BadRequest(new { message = "Los datos proporcionados no pueden ser nulos." });
+            }
+
+            try
+            {
+                var result = await _notificationBusiness.UpdatePartialNotificationAsync(id, updatedFields);
+                return Ok(new { message = "Notificación actualizada parcialmente correctamente", success = result });
+            }
+            catch (ValidationException ex)
+            {
+                _logger.LogWarning(ex, "Validación fallida al actualizar parcialmente la notificación con ID: {NotificationId}", id);
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (EntityNotFoundException ex)
+            {
+                _logger.LogInformation(ex, "Notificación no encontrada con ID: {NotificationId}", id);
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error al actualizar parcialmente la notificación con ID: {NotificationId}", id);
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Realiza una eliminación lógica de una notificación (marca como inactiva)
+        /// </summary>
+        /// <param name="id">ID de la notificación a eliminar lógicamente</param>
+        /// <returns>Resultado de la operación</returns>
+        /// <response code="200">Notificación marcada como inactiva correctamente</response>
+        /// <response code="400">ID proporcionado no válido</response>
+        /// <response code="404">Notificación no encontrada</response>
+        /// <response code="500">Error interno del servidor</response>
+        [HttpDelete("soft-delete/{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> SoftDeleteNotification(int id)
+        {
+            if (id <= 0)
+            {
+                return BadRequest(new { message = "El ID de la notificación debe ser mayor a 0." });
+            }
+
+            try
+            {
+                var result = await _notificationBusiness.SoftDeleteNotificationAsync(id);
+                return Ok(new { message = "Notificación marcada como inactiva correctamente", success = result });
+            }
+            catch (EntityNotFoundException ex)
+            {
+                _logger.LogInformation(ex, "Notificación no encontrada con ID: {NotificationId}", id);
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error al realizar la eliminación lógica de la notificación con ID: {NotificationId}", id);
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Elimina una notificación del sistema
+        /// </summary>
+        /// <param name="id">ID de la notificación a eliminar</param>
+        /// <returns>Resultado de la operación</returns>
+        /// <response code="200">Notificación eliminada correctamente</response>
+        /// <response code="400">ID proporcionado no válido</response>
+        /// <response code="404">Notificación no encontrada</response>
+        /// <response code="500">Error interno del servidor</response>
+        [HttpDelete("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> DeleteNotification(int id)
+        {
+            if (id <= 0)
+            {
+                return BadRequest(new { message = "El ID de la notificación debe ser mayor a 0." });
+            }
+
+            try
+            {
+                var result = await _notificationBusiness.DeleteNotificationAsync(id);
+                return Ok(new { message = "Notificación eliminada correctamente", success = result });
+            }
+            catch (EntityNotFoundException ex)
+            {
+                _logger.LogInformation(ex, "Notificación no encontrada con ID: {NotificationId}", id);
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error al eliminar la notificación con ID: {NotificationId}", id);
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
     }
 }

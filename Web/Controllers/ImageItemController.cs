@@ -1,4 +1,5 @@
 ﻿using Business;
+using Data;
 using Entity.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -121,5 +122,172 @@ namespace Web.Controllers
                 return StatusCode(500, new { message = ex.Message });
             }
         }
+
+
+        /// <summary>
+        /// Actualiza parcialmente los campos de una imagen existente
+        /// </summary>
+        /// <param name="id">ID de la imagen a actualizar</param>
+        /// <param name="updatedFields">Campos a actualizar</param>
+        /// <returns>Resultado de la operación</returns>
+        /// <response code="200">Imagen actualizada parcialmente correctamente</response>
+        /// <response code="400">Datos no válidos</response>
+        /// <response code="404">Imagen no encontrada</response>
+        /// <response code="500">Error interno del servidor</response>
+        [HttpPatch("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> UpdatePartialImageItem(int id, [FromBody] ImageItemDTO updatedFields)
+        {
+            if (updatedFields == null)
+            {
+                return BadRequest(new { message = "Los datos proporcionados no pueden ser nulos." });
+            }
+
+            try
+            {
+                var result = await _imageItemBusiness.UpdateImageItemAsync(id, updatedFields);
+                return Ok(new { message = "Imagen actualizada parcialmente correctamente", success = result });
+            }
+            catch (ValidationException ex)
+            {
+                _logger.LogWarning(ex, "Validación fallida al actualizar parcialmente la imagen con ID: {ImageItemId}", id);
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (EntityNotFoundException ex)
+            {
+                _logger.LogInformation(ex, "Imagen no encontrada con ID: {ImageItemId}", id);
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error al actualizar parcialmente la imagen con ID: {ImageItemId}", id);
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Actualiza una imagen de item existente en el sistema
+        /// </summary>
+        /// <param name="id">ID de la imagen del item a actualizar</param>
+        /// <param name="imageItemDto">Datos actualizados de la imagen del item</param>
+        /// <returns>Resultado de la operación</returns>
+        /// <response code="200">Imagen de item actualizada correctamente</response>
+        /// <response code="400">Datos de la imagen del item no válidos</response>
+        /// <response code="404">Imagen del item no encontrada</response>
+        /// <response code="500">Error interno del servidor</response>
+        [HttpPut("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> UpdateImageItem(int id, [FromBody] ImageItemDTO imageItemDto)
+        {
+            if (id != imageItemDto.Id)
+            {
+                return BadRequest(new { message = "El ID de la imagen del item no coincide con el ID proporcionado en el cuerpo de la solicitud." });
+            }
+
+            try
+            {
+                await _imageItemBusiness.UpdateImageItemAsync(imageItemDto);
+                return Ok(new { message = "Imagen de item actualizada correctamente", success = true });
+            }
+            catch (ValidationException ex)
+            {
+                _logger.LogWarning(ex, "Validación fallida al actualizar la imagen del item con ID: {ImageItemId}", id);
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (EntityNotFoundException ex)
+            {
+                _logger.LogInformation(ex, "Imagen del item no encontrada con ID: {ImageItemId}", id);
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error al actualizar la imagen del item con ID: {ImageItemId}", id);
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
+
+        /// <summary>
+        /// Realiza una eliminación lógica de una imagen de item (marca como inactiva)
+        /// </summary>
+        /// <param name="id">ID de la imagen del item a eliminar lógicamente</param>
+        /// <returns>Resultado de la operación</returns>
+        /// <response code="200">Imagen de item marcada como inactiva correctamente</response>
+        /// <response code="400">ID proporcionado no válido</response>
+        /// <response code="404">Imagen del item no encontrada</response>
+        /// <response code="500">Error interno del servidor</response>
+        [HttpDelete("soft-delete/{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> SoftDeleteImageItem(int id)
+        {
+            if (id <= 0)
+            {
+                return BadRequest(new { message = "El ID de la imagen del item debe ser mayor a 0." });
+            }
+
+            try
+            {
+                var result = await _imageItemBusiness.SoftDeleteImageItemAsync(id);
+                return Ok(new { message = "Imagen de item marcada como inactiva correctamente", success = result });
+            }
+            catch (EntityNotFoundException ex)
+            {
+                _logger.LogInformation(ex, "Imagen del item no encontrada con ID: {ImageItemId}", id);
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error al realizar la eliminación lógica de la imagen del item con ID: {ImageItemId}", id);
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Elimina una imagen de item del sistema
+        /// </summary>
+        /// <param name="id">ID de la imagen del item a eliminar</param>
+        /// <returns>Resultado de la operación</returns>
+        /// <response code="200">Imagen de item eliminada correctamente</response>
+        /// <response code="400">ID proporcionado no válido</response>
+        /// <response code="404">Imagen del item no encontrada</response>
+        /// <response code="500">Error interno del servidor</response>
+        [HttpDelete("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> DeleteImageItem(int id)
+        {
+            if (id <= 0)
+            {
+                return BadRequest(new { message = "El ID de la imagen del item debe ser mayor a 0." });
+            }
+
+            try
+            {
+                var result = await _imageItemBusiness.DeleteImageItemAsync(id);
+                return Ok(new { message = "Imagen de item eliminada correctamente", success = result });
+            }
+            catch (EntityNotFoundException ex)
+            {
+                _logger.LogInformation(ex, "Imagen del item no encontrada con ID: {ImageItemId}", id);
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error al eliminar la imagen del item con ID: {ImageItemId}", id);
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
     }
 }

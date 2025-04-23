@@ -58,6 +58,22 @@ namespace Entity.Context
         /// <param name="modelBuilder">Constructor del modelo de base de datos.</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<RolForm>()
+                .Property(n => n.Permision)
+                .HasConversion<string>();
+
+            modelBuilder.Entity<Notification>()
+                .Property(n => n.TypeAction)
+                .HasConversion<string>();
+
+            modelBuilder.Entity<Person>()
+                .Property(n => n.TypeIdentification)
+                .HasConversion<string>();
+
+            modelBuilder.Entity<MovimientInventory>()
+                .Property(n => n.TypeMovement)
+                .HasConversion<string>();
+
 
             // Configuración de la relación de uno a muchos entre Inventory y MovimientInventory
             modelBuilder.Entity<MovimientInventory>()

@@ -121,5 +121,170 @@ namespace Web.Controllers
                 return StatusCode(500, new { message = ex.Message });
             }
         }
+
+        /// <summary>
+        /// Actualiza un producto existente en el sistema
+        /// </summary>
+        /// <param name="id">ID del producto a actualizar</param>
+        /// <param name="productDto">Datos actualizados del producto</param>
+        /// <returns>Resultado de la operación</returns>
+        /// <response code="200">Producto actualizado correctamente</response>
+        /// <response code="400">Datos del producto no válidos</response>
+        /// <response code="404">Producto no encontrado</response>
+        /// <response code="500">Error interno del servidor</response>
+        [HttpPut("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> UpdateProduct(int id, [FromBody] ProductDto productDto)
+        {
+            if (id != productDto.Id)
+            {
+                return BadRequest(new { message = "El ID del producto no coincide con el ID proporcionado en el cuerpo de la solicitud." });
+            }
+
+            try
+            {
+                var result = await _productBusiness.UpdateProductAsync(productDto);
+                return Ok(new { message = "Producto actualizado correctamente", success = result });
+            }
+            catch (ValidationException ex)
+            {
+                _logger.LogWarning(ex, "Validación fallida al actualizar el producto con ID: {ProductId}", id);
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (EntityNotFoundException ex)
+            {
+                _logger.LogInformation(ex, "Producto no encontrado con ID: {ProductId}", id);
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error al actualizar el producto con ID: {ProductId}", id);
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Actualiza campos específicos de un producto
+        /// </summary>
+        /// <param name="id">ID del producto a actualizar</param>
+        /// <param name="updatedFields">Campos a actualizar</param>
+        /// <returns>Resultado de la operación</returns>
+        /// <response code="200">Producto actualizado correctamente</response>
+        /// <response code="400">Datos no válidos</response>
+        /// <response code="404">Producto no encontrado</response>
+        /// <response code="500">Error interno del servidor</response>
+        [HttpPatch("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> UpdatePartialProduct(int id, [FromBody] ProductDto updatedFields)
+        {
+            if (updatedFields == null)
+            {
+                return BadRequest(new { message = "Los datos proporcionados no pueden ser nulos." });
+            }
+
+            try
+            {
+                var result = await _productBusiness.UpdatePartialProductAsync(id, updatedFields);
+                return Ok(new { message = "Producto actualizado parcialmente correctamente", success = result });
+            }
+            catch (ValidationException ex)
+            {
+                _logger.LogWarning(ex, "Validación fallida al actualizar parcialmente el producto con ID: {ProductId}", id);
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (EntityNotFoundException ex)
+            {
+                _logger.LogInformation(ex, "Producto no encontrado con ID: {ProductId}", id);
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error al actualizar parcialmente el producto con ID: {ProductId}", id);
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Realiza una eliminación lógica de un producto (marca como inactivo)
+        /// </summary>
+        /// <param name="id">ID del producto a eliminar lógicamente</param>
+        /// <returns>Resultado de la operación</returns>
+        /// <response code="200">Producto marcado como inactivo correctamente</response>
+        /// <response code="400">ID proporcionado no válido</response>
+        /// <response code="404">Producto no encontrado</response>
+        /// <response code="500">Error interno del servidor</response>
+        [HttpDelete("soft-delete/{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> SoftDeleteProduct(int id)
+        {
+            if (id <= 0)
+            {
+                return BadRequest(new { message = "El ID del producto debe ser mayor a 0." });
+            }
+
+            try
+            {
+                var result = await _productBusiness.SoftDeleteProductAsync(id);
+                return Ok(new { message = "Producto marcado como inactivo correctamente", success = result });
+            }
+            catch (EntityNotFoundException ex)
+            {
+                _logger.LogInformation(ex, "Producto no encontrado con ID: {ProductId}", id);
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error al realizar la eliminación lógica del producto con ID: {ProductId}", id);
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Elimina un producto del sistema
+        /// </summary>
+        /// <param name="id">ID del producto a eliminar</param>
+        /// <returns>Resultado de la operación</returns>
+        /// <response code="200">Producto eliminado correctamente</response>
+        /// <response code="400">ID proporcionado no válido</response>
+        /// <response code="404">Producto no encontrado</response>
+        /// <response code="500">Error interno del servidor</response>
+        [HttpDelete("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            if (id <= 0)
+            {
+                return BadRequest(new { message = "El ID del producto debe ser mayor a 0." });
+            }
+
+            try
+            {
+                var result = await _productBusiness.DeleteProductAsync(id);
+                return Ok(new { message = "Producto eliminado correctamente", success = result });
+            }
+            catch (EntityNotFoundException ex)
+            {
+                _logger.LogInformation(ex, "Producto no encontrado con ID: {ProductId}", id);
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error al eliminar el producto con ID: {ProductId}", id);
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
     }
 }

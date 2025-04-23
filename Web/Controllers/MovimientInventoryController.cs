@@ -121,5 +121,156 @@ namespace Web.Controllers
                 return StatusCode(500, new { message = ex.Message });
             }
         }
+
+        /// <summary>
+        /// Actualiza un movimiento de inventario existente
+        /// </summary>
+        /// <param name="id">ID del movimiento de inventario a actualizar</param>
+        /// <param name="movimientInventoryDto">Datos actualizados del movimiento de inventario</param>
+        /// <returns>Resultado de la operación</returns>
+        /// <response code="200">Movimiento de inventario actualizado correctamente</response>
+        /// <response code="400">Datos del movimiento de inventario no válidos</response>
+        /// <response code="404">Movimiento de inventario no encontrado</response>
+        /// <response code="500">Error interno del servidor</response>
+        [HttpPut("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> UpdateMovimientInventory(int id, [FromBody] MovimientInventoryDto movimientInventoryDto)
+        {
+            if (id != movimientInventoryDto.Id)
+            {
+                return BadRequest(new { message = "El ID del movimiento de inventario no coincide con el ID proporcionado en el cuerpo de la solicitud." });
+            }
+
+            try
+            {
+                var result = await _movimientInventoryBusiness.UpdateMovimientInventoryAsync(movimientInventoryDto);
+                return Ok(new { message = "Movimiento de inventario actualizado correctamente", success = result });
+            }
+            catch (ValidationException ex)
+            {
+                _logger.LogWarning(ex, "Validación fallida al actualizar el movimiento de inventario con ID: {MovimientInventoryId}", id);
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (EntityNotFoundException ex)
+            {
+                _logger.LogInformation(ex, "Movimiento de inventario no encontrado con ID: {MovimientInventoryId}", id);
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error al actualizar el movimiento de inventario con ID: {MovimientInventoryId}", id);
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Actualiza parcialmente los campos de un movimiento de inventario existente
+        /// </summary>
+        /// <param name="id">ID del movimiento de inventario a actualizar</param>
+        /// <param name="updatedFields">Campos a actualizar</param>
+        /// <returns>Resultado de la operación</returns>
+        /// <response code="200">Movimiento de inventario actualizado parcialmente correctamente</response>
+        /// <response code="400">Datos no válidos</response>
+        /// <response code="404">Movimiento de inventario no encontrado</response>
+        /// <response code="500">Error interno del servidor</response>
+        [HttpPatch("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> UpdatePartialMovimientInventory(int id, [FromBody] MovimientInventoryDto updatedFields)
+        {
+            if (updatedFields == null)
+            {
+                return BadRequest(new { message = "Los datos proporcionados no pueden ser nulos." });
+            }
+
+            try
+            {
+                var result = await _movimientInventoryBusiness.UpdatePartialMovimientInventoryAsync(id, updatedFields);
+                return Ok(new { message = "Movimiento de inventario actualizado parcialmente correctamente", success = result });
+            }
+            catch (ValidationException ex)
+            {
+                _logger.LogWarning(ex, "Validación fallida al actualizar parcialmente el movimiento de inventario con ID: {MovimientInventoryId}", id);
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (EntityNotFoundException ex)
+            {
+                _logger.LogInformation(ex, "Movimiento de inventario no encontrado con ID: {MovimientInventoryId}", id);
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error al actualizar parcialmente el movimiento de inventario con ID: {MovimientInventoryId}", id);
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Elimina un movimiento de inventario lógicamente (lo marca como inactivo)
+        /// </summary>
+        /// <param name="id">ID del movimiento de inventario a eliminar lógicamente</param>
+        /// <returns>Resultado de la operación</returns>
+        /// <response code="200">Movimiento de inventario eliminado lógicamente</response>
+        /// <response code="404">Movimiento de inventario no encontrado</response>
+        /// <response code="500">Error interno del servidor</response>
+        [HttpDelete("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> SoftDeleteMovimientInventory(int id)
+        {
+            try
+            {
+                var result = await _movimientInventoryBusiness.SoftDeleteMovimientInventoryAsync(id);
+                return Ok(new { message = "Movimiento de inventario eliminado lógicamente", success = result });
+            }
+            catch (EntityNotFoundException ex)
+            {
+                _logger.LogInformation(ex, "Movimiento de inventario no encontrado con ID: {MovimientInventoryId}", id);
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error al eliminar el movimiento de inventario con ID: {MovimientInventoryId} lógicamente", id);
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Elimina un movimiento de inventario permanentemente del sistema
+        /// </summary>
+        /// <param name="id">ID del movimiento de inventario a eliminar</param>
+        /// <returns>Resultado de la operación</returns>
+        /// <response code="200">Movimiento de inventario eliminado permanentemente</response>
+        /// <response code="404">Movimiento de inventario no encontrado</response>
+        /// <response code="500">Error interno del servidor</response>
+        [HttpDelete("permanent/{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> DeleteMovimientInventory(int id)
+        {
+            try
+            {
+                var result = await _movimientInventoryBusiness.DeleteMovimientInventoryAsync(id);
+                return Ok(new { message = "Movimiento de inventario eliminado permanentemente", success = result });
+            }
+            catch (EntityNotFoundException ex)
+            {
+                _logger.LogInformation(ex, "Movimiento de inventario no encontrado con ID: {MovimientInventoryId}", id);
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error al eliminar el movimiento de inventario con ID: {MovimientInventoryId} permanentemente", id);
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
     }
 }
