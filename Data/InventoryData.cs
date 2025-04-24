@@ -99,28 +99,21 @@ namespace Data
         /// </summary>
         /// <param name="id">Identificador único del Inventory a eliminar.</param>
         /// <returns>True si la eliminación fue exitosa, False en caso contrario.</returns>
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(Inventory inventory)
         {
             try
             {
-                var inventory = await _context.Set<Inventory>().FindAsync(id);
-                if (inventory == null)
-                    return false;
-
-                _context.Set<Inventory>().Remove(inventory);
-                await _context.SaveChangesAsync();
-                return true;
+                _context.Inventory.Remove(inventory); // Marca el objeto para eliminación
+                await _context.SaveChangesAsync();   // Guarda los cambios en la base de datos
+                return true;                         // Retorna true si la operación fue exitosa
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error al eliminar el Inventory {ex.Message}");
-                return false;
+                _logger.LogError(ex, "Error al eliminar el inventario con ID: {InventoryId}", inventory.Id);
+                return false; // Retorna false si ocurre un error
             }
         }
 
-        public async Task<bool> DeleteAsync(Inventory inventory)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }

@@ -266,6 +266,7 @@ public class RolBusiness
             NameRol = rolDTO.NameRol,
             Description = rolDTO.Description,
             Status = rolDTO.Status,
+            IdUser = rolDTO.IdUser
         };
     }
 

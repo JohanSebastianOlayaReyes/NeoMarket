@@ -11,7 +11,7 @@ namespace Entity.DTO
     {
         public int Id { get; set; }
         public TypeMovement TypeMoviment { get; set; }
-        public string Quantity { get; set; }
+        public int Quantity { get; set; }
         public DateTime Date { get; set; }
         public string Description { get; set; }
         public int IdInventory { get; set; }
