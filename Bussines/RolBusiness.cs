@@ -253,7 +253,6 @@ public class RolBusiness
             NameRol = rol.NameRol,
             Description = rol.Description,
             Status = rol.Status,
-            IdUser = rol.IdUser
         };
     }
 
@@ -266,7 +265,6 @@ public class RolBusiness
             NameRol = rolDTO.NameRol,
             Description = rolDTO.Description,
             Status = rolDTO.Status,
-            IdUser = rolDTO.IdUser
         };
     }
 

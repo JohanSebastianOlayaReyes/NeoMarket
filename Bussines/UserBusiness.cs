@@ -263,7 +263,9 @@ public class UserBusiness
             UserName = user.UserName,
             Password = user.Password,
             Status = user.Status,
+            IdRol = user.IdRol,
             IdPerson = user.IdPerson,
+            IdCompany = user.IdCompany
         };
     }
 
@@ -276,7 +278,9 @@ public class UserBusiness
             UserName = userDto.UserName,
             Password = userDto.Password,
             Status = userDto.Status,
+            IdRol = userDto.IdRol,
             IdPerson = userDto.IdPerson,
+            IdCompany = userDto.IdCompany
         };
     }
 

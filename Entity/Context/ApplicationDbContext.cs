@@ -58,6 +58,8 @@ namespace Entity.Context
         /// <param name="modelBuilder">Constructor del modelo de base de datos.</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            // Convierte a texto los strings
             modelBuilder.Entity<RolForm>()
                 .Property(n => n.Permision)
                 .HasConversion<string>();
@@ -66,9 +68,9 @@ namespace Entity.Context
                 .Property(n => n.TypeAction)
                 .HasConversion<string>();
 
-            modelBuilder.Entity<Person>()
-                .Property(n => n.TypeIdentification)
-                .HasConversion<string>();
+          //modelBuilder.Entity<Person>()
+              //.Property(n => n.TypeIdentification)
+              //.HasConversion<string>();
 
             modelBuilder.Entity<MovimientInventory>()
                 .Property(n => n.TypeMovement)
@@ -78,7 +80,7 @@ namespace Entity.Context
             // Configuración de la relación de uno a muchos entre Inventory y MovimientInventory
             modelBuilder.Entity<MovimientInventory>()
                 .HasOne(mi => mi.Inventory)
-                .WithMany(i => i.MovimientInventories) 
+                .WithMany(i => i.MovimientInventories)
                 .HasForeignKey(mi => mi.IdInventory);
 
             // Configuración de la relación de uno a muchos entre Product y MovimientInventory
@@ -89,38 +91,38 @@ namespace Entity.Context
 
             // Configuración de la relación de uno a muchos entre Inventory y Product
             modelBuilder.Entity<Product>()
-                .HasOne(p => p.Inventory) 
-                .WithMany(i => i.Products) 
+                .HasOne(p => p.Inventory)
+                .WithMany(i => i.Products)
                 .HasForeignKey(p => p.IdInventory);
 
             // Configuración de la relación de uno a uno entre Product y Category
             modelBuilder.Entity<Product>()
-                .HasOne(p => p.Category) 
-                .WithOne(c => c.Product) 
-                .HasForeignKey<Product>(p => p.IdCategory); 
+                .HasOne(p => p.Category)
+                .WithOne(c => c.Product)
+                .HasForeignKey<Product>(p => p.IdCategory);
 
             // Configuración de la relación de uno a uno entre Product y ImageItem
             modelBuilder.Entity<Product>()
-                .HasOne(p => p.ImageItems) 
-                .WithOne(ii => ii.Product) 
-                .HasForeignKey<Product>(p => p.IdImageItem); 
+                .HasOne(p => p.ImageItems)
+                .WithOne(ii => ii.Product)
+                .HasForeignKey<Product>(p => p.IdImageItem);
 
             // Configuración de la relación de uno a muchos entre Product y Buyout
             modelBuilder.Entity<Buyout>()
-                .HasOne(b => b.Product) 
+                .HasOne(b => b.Product)
                 .WithMany(p => p.Buyouts)
                 .HasForeignKey(b => b.IdProduct);
 
             // Configuración de la relación de muchos a uno entre Buyout y User
-            modelBuilder.Entity<Buyout>()
-                .HasOne(b => b.User) 
-                .WithMany(u => u.Buyouts) 
-                .HasForeignKey(b => b.IdUser);
+           // modelBuilder.Entity<Buyout>()
+             //   .HasOne(b => b.User)
+               // .WithMany(u => u.Buyout)
+                //.HasForeignKey(b => b.UserId);
 
             // Configuración de la relación de uno a muchos entre Product y SeleDetail
             modelBuilder.Entity<SaleDetail>()
-                .HasOne(sd => sd.Product) 
-                .WithMany(p => p.SeleDetails) 
+                .HasOne(sd => sd.Product)
+                .WithMany(p => p.SeleDetails)
                 .HasForeignKey(sd => sd.IdProduct);
 
             modelBuilder.Entity<User>()
@@ -130,30 +132,30 @@ namespace Entity.Context
 
 
             // Configuración de la relación de uno a muchos entre User y Sele
-            modelBuilder.Entity<Sale>()
-                .HasOne(s => s.User) 
-                .WithMany(u => u.Seles) 
-                .HasForeignKey(s => s.IdUser);
+         //   modelBuilder.Entity<Sale>()
+           //     .HasOne(s => s.User)
+             //   .WithMany(u => u.Sele)
+               // .HasForeignKey(s => s.IdUser);
 
             // Configuración de la relación de uno a muchos entre Sele y SeleDetail
             modelBuilder.Entity<SaleDetail>()
-                .HasOne(sd => sd.Sele) 
-                .WithMany(s => s.SeleDetails) 
+                .HasOne(sd => sd.Sele)
+                .WithMany(s => s.SeleDetails)
                 .HasForeignKey(sd => sd.IdSele);
-            
+
             // Configuración de la relación de uno a muchos entre User y Notification
-            modelBuilder.Entity<Notification>()
-                .HasOne(n => n.User) 
-                .WithMany(u => u.Notifications) 
-                .HasForeignKey(n => n.IdUser);
+          //  modelBuilder.Entity<Notification>()
+              //  .HasOne(n => n.User)
+            //    .WithMany(u => u.Notification)
+                //.HasForeignKey(n => n.IdUser);
 
             //Configuración de la relación de uno a uno entre User y Rol
-            
-                modelBuilder.Entity<Rol>()
-                    .HasOne(r => r.User)
-                    .WithOne(u => u.Rol)
-                    .HasForeignKey<Rol>(u => u.IdUser);
-            
+
+            modelBuilder.Entity<User>()
+                .HasOne(r => r.Rol)
+                .WithOne(u => u.User)
+                .HasForeignKey<User>(r => r.IdRol);
+
 
             // Configuración de la relación de muchos a muchos entre Rol y Form
             modelBuilder.Entity<RolForm>()
@@ -171,8 +173,8 @@ namespace Entity.Context
 
             // Configuración de la relación de uno a muchos entre Module y Form
             modelBuilder.Entity<Form>()
-                .HasOne(f => f.Module) 
-                .WithMany(m => m.Forms) 
+                .HasOne(f => f.Module)
+                .WithMany(m => m.Forms)
                 .HasForeignKey(f => f.IdModule);
 
             // Configuración de la relación de uno a muchos entre Company y Sede
@@ -180,6 +182,12 @@ namespace Entity.Context
                 .HasOne(s => s.Company) // Una Sede tiene una Company
                 .WithMany(c => c.Sede) // Una Company tiene muchas Sede
                 .HasForeignKey(s => s.IdCompany); // Clave foránea en Sede
+
+            // Configuración de la relación de uno a muchos entre Company y User
+            modelBuilder.Entity<User>()
+                .HasOne(s => s.Company) // Un Usuario tiene una Compañia
+                .WithMany(c => c.User) // Una Compañia tiene muchas Usuarios
+                .HasForeignKey(s => s.IdCompany); // Clave foránea en Usuario
 
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

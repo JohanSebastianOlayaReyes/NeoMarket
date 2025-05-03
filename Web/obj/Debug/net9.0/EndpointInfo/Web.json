@@ -6201,10 +6201,6 @@
           },
           "status": {
             "type": "boolean"
-          },
-          "idUser": {
-            "type": "integer",
-            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -6365,7 +6361,27 @@
           "status": {
             "type": "boolean"
           },
+          "createAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updateAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deleteAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "idRol": {
+            "type": "integer",
+            "format": "int32"
+          },
           "idPerson": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "idCompany": {
             "type": "integer",
             "format": "int32"
           }

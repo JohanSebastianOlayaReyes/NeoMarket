@@ -1,4 +1,4 @@
-﻿using Business;
+﻿    using Business;
 using Entity.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -10,7 +10,7 @@ namespace Web.Controllers
 {
     /// <summary>
     /// Controlador para la gestión de sedes en el sistema
-    /// </summary>
+    /// </summary>  
     [Route("api/[controller]")]
     [ApiController]
     [Produces("application/json")]
