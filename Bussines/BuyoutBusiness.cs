@@ -22,6 +22,7 @@ public class BuyoutBusiness
 
     // Método para obtener todas las compras como DTOs
     public async Task<IEnumerable<BuyoutDto>> GetAllBuyoutsAsync()
+    
     {
         try
         {

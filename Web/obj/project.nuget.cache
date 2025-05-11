@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Ati+rmaag9M=",
+  "dgSpecHash": "qf4OzajYMHw=",
   "success": true,
   "projectFilePath": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Web\\Web.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\USUARIO\\.nuget\\packages\\automapper\\14.0.0\\automapper.14.0.0.nupkg.sha512",
     "C:\\Users\\USUARIO\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\USUARIO\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
     "C:\\Users\\USUARIO\\.nuget\\packages\\bouncycastle.cryptography\\2.5.1\\bouncycastle.cryptography.2.5.1.nupkg.sha512",

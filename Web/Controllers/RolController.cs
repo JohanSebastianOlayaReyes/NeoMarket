@@ -1,6 +1,5 @@
 ﻿using Business;
 using Entity.DTO;
-using Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
@@ -10,58 +9,58 @@ using Utilities.Exceptions;
 namespace Web.Controllers
 {
     /// <summary>
-    /// Controlador para la gestión de permisos en el sistema
+    /// Controlador para la gestión de roles en el sistema
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     [Produces("application/json")]
     public class RolController : ControllerBase
     {
-        private readonly RolBusiness _RolBusiness;
+        private readonly RolBusiness _rolBusiness;
         private readonly ILogger<RolController> _logger;
 
         /// <summary>
-        /// Constructor del controlador de permisos
+        /// Constructor del controlador de roles
         /// </summary>
-        /// <param name="RolBusiness">Capa de negocio de permisos</param>
+        /// <param name="rolBusiness">Capa de negocio de roles</param>
         /// <param name="logger">Logger para registro de eventos</param>
-        public RolController(RolBusiness RolBusiness, ILogger<RolController> logger)
+        public RolController(RolBusiness rolBusiness, ILogger<RolController> logger)
         {
-            _RolBusiness = RolBusiness;
+            _rolBusiness = rolBusiness;
             _logger = logger;
         }
 
         /// <summary>
-        /// Obtiene todos los permisos del sistema
+        /// Obtiene todos los roles del sistema
         /// </summary>
-        /// <returns>Lista de permisos</returns>
-        /// <response code="200">Retorna la lista de permisos</response>
+        /// <returns>Lista de roles</returns>
+        /// <response code="200">Retorna la lista de roles</response>
         /// <response code="500">Error interno del servidor</response>
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<RolDto>), 200)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> GetAllRols()
+        public async Task<IActionResult> GetAllRoles()
         {
             try
             {
-                var Rols = await _RolBusiness.GetAllRolesAsync();
-                return Ok(Rols);
+                var roles = await _rolBusiness.GetAllRolesAsync();
+                return Ok(roles);
             }
             catch (ExternalServiceException ex)
             {
-                _logger.LogError(ex, "Error al obtener permisos");
+                _logger.LogError(ex, "Error al obtener roles");
                 return StatusCode(500, new { message = ex.Message });
             }
         }
 
         /// <summary>
-        /// Obtiene un permiso específico por su ID
+        /// Obtiene un rol específico por su ID
         /// </summary>
-        /// <param name="id">ID del permiso</param>
-        /// <returns>Permiso solicitado</returns>
-        /// <response code="200">Retorna el permiso solicitado</response>
+        /// <param name="id">ID del rol</param>
+        /// <returns>Rol solicitado</returns>
+        /// <response code="200">Retorna el rol solicitado</response>
         /// <response code="400">ID proporcionado no válido</response>
-        /// <response code="404">Permiso no encontrado</response>
+        /// <response code="404">Rol no encontrado</response>
         /// <response code="500">Error interno del servidor</response>
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(RolDto), 200)]
@@ -72,53 +71,53 @@ namespace Web.Controllers
         {
             try
             {
-                var Rol = await _RolBusiness.GetRolByIdAsync(id);
-                return Ok(Rol);
+                var rol = await _rolBusiness.GetRolByIdAsync(id);
+                return Ok(rol);
             }
             catch (ValidationException ex)
             {
-                _logger.LogWarning(ex, "Validación fallida para el permiso con ID: {RolId}", id);
+                _logger.LogWarning(ex, "Validación fallida para el rol con ID: {RolId}", id);
                 return BadRequest(new { message = ex.Message });
             }
             catch (EntityNotFoundException ex)
             {
-                _logger.LogInformation(ex, "Permiso no encontrado con ID: {RolId}", id);
+                _logger.LogInformation(ex, "Rol no encontrado con ID: {RolId}", id);
                 return NotFound(new { message = ex.Message });
             }
             catch (ExternalServiceException ex)
             {
-                _logger.LogError(ex, "Error al obtener permiso con ID: {RolId}", id);
+                _logger.LogError(ex, "Error al obtener rol con ID: {RolId}", id);
                 return StatusCode(500, new { message = ex.Message });
             }
         }
 
         /// <summary>
-        /// Crea un nuevo permiso en el sistema
+        /// Crea un nuevo rol en el sistema
         /// </summary>
-        /// <param name="RolDto">Datos del permiso a crear</param>
-        /// <returns>Permiso creado</returns>
-        /// <response code="201">Retorna el permiso creado</response>
-        /// <response code="400">Datos del permiso no válidos</response>
+        /// <param name="rolDto">Datos del rol a crear</param>
+        /// <returns>Rol creado</returns>
+        /// <response code="201">Retorna el rol creado</response>
+        /// <response code="400">Datos del rol no válidos</response>
         /// <response code="500">Error interno del servidor</response>
         [HttpPost]
         [ProducesResponseType(typeof(RolDto), 201)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> CreateRol([FromBody] RolDto RolDto)
+        public async Task<IActionResult> CreateRol([FromBody] RolDto rolDto)
         {
             try
             {
-                var createdRol = await _RolBusiness.CreateRolAsync(RolDto);
+                var createdRol = await _rolBusiness.CreateRolAsync(rolDto);
                 return CreatedAtAction(nameof(GetRolById), new { id = createdRol.Id }, createdRol);
             }
             catch (ValidationException ex)
             {
-                _logger.LogWarning(ex, "Validación fallida al crear permiso");
+                _logger.LogWarning(ex, "Validación fallida al crear rol");
                 return BadRequest(new { message = ex.Message });
             }
             catch (ExternalServiceException ex)
             {
-                _logger.LogError(ex, "Error al crear permiso");
+                _logger.LogError(ex, "Error al crear rol");
                 return StatusCode(500, new { message = ex.Message });
             }
         }
@@ -147,7 +146,7 @@ namespace Web.Controllers
 
             try
             {
-                var result = await _RolBusiness.UpdateRolAsync(rolDto);
+                var result = await _rolBusiness.UpdateRolAsync(rolDto);
                 return Ok(new { message = "Rol actualizado correctamente", success = result });
             }
             catch (ValidationException ex)
@@ -191,7 +190,7 @@ namespace Web.Controllers
 
             try
             {
-                var result = await _RolBusiness.UpdatePartialRolAsync(id, updatedFields);
+                var result = await _rolBusiness.UpdatePartialRolAsync(id, updatedFields);
                 return Ok(new { message = "Rol actualizado parcialmente correctamente", success = result });
             }
             catch (ValidationException ex)
@@ -234,7 +233,7 @@ namespace Web.Controllers
 
             try
             {
-                var result = await _RolBusiness.SoftDeleteRolAsync(id);
+                var result = await _rolBusiness.SoftDeleteRolAsync(id);
                 return Ok(new { message = "Rol marcado como inactivo correctamente", success = result });
             }
             catch (EntityNotFoundException ex)
@@ -272,7 +271,7 @@ namespace Web.Controllers
 
             try
             {
-                var result = await _RolBusiness.DeleteRolAsync(id);
+                var result = await _rolBusiness.DeleteRolAsync(id);
                 return Ok(new { message = "Rol eliminado correctamente", success = result });
             }
             catch (EntityNotFoundException ex)

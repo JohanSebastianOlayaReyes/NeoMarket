@@ -7,8 +7,28 @@
       "RelativeMoniker": "D:0:0:{EBA49FA9-F508-4375-A4E9-CAA889AC7F79}|Web\\Web.csproj|solutionrelative:web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CBE7F953-44D4-4A11-95C9-ED296143527C}|Bussines\\Business.csproj|c:\\users\\usuario\\source\\repos\\neomarke-master\\bussines\\personbusiness.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CBE7F953-44D4-4A11-95C9-ED296143527C}|Bussines\\Business.csproj|solutionrelative:bussines\\personbusiness.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{EBA49FA9-F508-4375-A4E9-CAA889AC7F79}|Web\\Web.csproj|c:\\users\\usuario\\source\\repos\\neomarke-master\\web\\controllers\\rolcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EBA49FA9-F508-4375-A4E9-CAA889AC7F79}|Web\\Web.csproj|solutionrelative:web\\controllers\\rolcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{784DBB40-60B8-494C-A312-DA1F435B5859}|Data\\Data.csproj|c:\\users\\usuario\\source\\repos\\neomarke-master\\data\\productdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{784DBB40-60B8-494C-A312-DA1F435B5859}|Data\\Data.csproj|solutionrelative:data\\productdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CBE7F953-44D4-4A11-95C9-ED296143527C}|Bussines\\Business.csproj|c:\\users\\usuario\\source\\repos\\neomarke-master\\bussines\\rolbusiness.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CBE7F953-44D4-4A11-95C9-ED296143527C}|Bussines\\Business.csproj|solutionrelative:bussines\\rolbusiness.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EBA49FA9-F508-4375-A4E9-CAA889AC7F79}|Web\\Web.csproj|c:\\users\\usuario\\source\\repos\\neomarke-master\\web\\infratrusctura\\mapping\\mappingprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EBA49FA9-F508-4375-A4E9-CAA889AC7F79}|Web\\Web.csproj|solutionrelative:web\\infratrusctura\\mapping\\mappingprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CBE7F953-44D4-4A11-95C9-ED296143527C}|Bussines\\Business.csproj|c:\\users\\usuario\\source\\repos\\neomarke-master\\bussines\\factory\\rolstrategyfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CBE7F953-44D4-4A11-95C9-ED296143527C}|Bussines\\Business.csproj|solutionrelative:bussines\\factory\\rolstrategyfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CBE7F953-44D4-4A11-95C9-ED296143527C}|Bussines\\Business.csproj|c:\\users\\usuario\\source\\repos\\neomarke-master\\bussines\\factory\\irolstrategyfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CBE7F953-44D4-4A11-95C9-ED296143527C}|Bussines\\Business.csproj|solutionrelative:bussines\\factory\\irolstrategyfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -50,28 +70,93 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "PersonBusiness.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Bussines\\PersonBusiness.cs",
-              "RelativeDocumentMoniker": "Bussines\\PersonBusiness.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Bussines\\PersonBusiness.cs",
-              "RelativeToolTip": "Bussines\\PersonBusiness.cs",
-              "ViewState": "AgIAADEAAAAAAAAAAAAIwFAAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-02T20:59:15.142Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Web\\Program.cs",
               "RelativeDocumentMoniker": "Web\\Program.cs",
               "ToolTip": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Web\\Program.cs",
               "RelativeToolTip": "Web\\Program.cs",
-              "ViewState": "AgIAADUAAAAAAAAAAAAYwHEAAAAOAAAAAAAAAA==",
+              "ViewState": "AgIAAHgAAAAAAAAAAAAnwFUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-02T20:54:39.434Z",
+              "WhenOpened": "2025-05-10T03:43:59.704Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ProductData.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Data\\ProductData.cs",
+              "RelativeDocumentMoniker": "Data\\ProductData.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Data\\ProductData.cs",
+              "RelativeToolTip": "Data\\ProductData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-10T03:43:53.63Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "RolController.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Web\\Controllers\\RolController.cs",
+              "RelativeDocumentMoniker": "Web\\Controllers\\RolController.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Web\\Controllers\\RolController.cs",
+              "RelativeToolTip": "Web\\Controllers\\RolController.cs",
+              "ViewState": "AgIAAPwAAAAAAAAAAAAYwCABAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-10T03:43:31.731Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "RolBusiness.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Bussines\\RolBusiness.cs",
+              "RelativeDocumentMoniker": "Bussines\\RolBusiness.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Bussines\\RolBusiness.cs",
+              "RelativeToolTip": "Bussines\\RolBusiness.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAANUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-10T03:42:45.964Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MappingProfile.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Web\\Infratrusctura\\Mapping\\MappingProfile.cs",
+              "RelativeDocumentMoniker": "Web\\Infratrusctura\\Mapping\\MappingProfile.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Web\\Infratrusctura\\Mapping\\MappingProfile.cs",
+              "RelativeToolTip": "Web\\Infratrusctura\\Mapping\\MappingProfile.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-10T03:38:23.515Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "IRolStrategyFactory.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Bussines\\Factory\\IRolStrategyFactory.cs",
+              "RelativeDocumentMoniker": "Bussines\\Factory\\IRolStrategyFactory.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Bussines\\Factory\\IRolStrategyFactory.cs",
+              "RelativeToolTip": "Bussines\\Factory\\IRolStrategyFactory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwA8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-10T03:27:34.035Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "RolStrategyFactory.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Bussines\\Factory\\RolStrategyFactory.cs",
+              "RelativeDocumentMoniker": "Bussines\\Factory\\RolStrategyFactory.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Bussines\\Factory\\RolStrategyFactory.cs",
+              "RelativeToolTip": "Bussines\\Factory\\RolStrategyFactory.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAYwCkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-10T03:26:08.161Z",
               "EditorCaption": ""
             }
           ]

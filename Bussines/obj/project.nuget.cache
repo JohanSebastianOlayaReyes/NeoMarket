@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "i73+uJ5svPc=",
+  "dgSpecHash": "4Shgql+ZL+U=",
   "success": true,
   "projectFilePath": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Bussines\\Business.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\USUARIO\\.nuget\\packages\\automapper\\14.0.0\\automapper.14.0.0.nupkg.sha512",
     "C:\\Users\\USUARIO\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\USUARIO\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
     "C:\\Users\\USUARIO\\.nuget\\packages\\dapper\\2.1.66\\dapper.2.1.66.nupkg.sha512",

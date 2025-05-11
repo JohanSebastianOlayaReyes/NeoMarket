@@ -136,10 +136,10 @@ public class PersonBusiness
             {
                 existingPerson.Email = updatedFields.Email;
             }
-           // if (!string.IsNullOrWhiteSpace(updatedFields.PhoneNumber))
-            //{
-                //existingPerson.PhoneNumber = updatedFields.PhoneNumber;
-            //}
+           if (!string.IsNullOrWhiteSpace(updatedFields.PhoneNumber))
+            {
+              existingPerson.PhoneNumber = updatedFields.PhoneNumber;
+            }
             if (updatedFields.Status != existingPerson.Status)
             {
                 existingPerson.Status = updatedFields.Status;
@@ -249,11 +249,11 @@ public class PersonBusiness
             Id = person.Id,
             FirstName = person.FirstName,
             LastName = person.LastName,
-            //PhoneNumber = person.PhoneNumber,
+            PhoneNumber = person.PhoneNumber,
             Email = person.Email,
             Status = person.Status,
-            //TypeIdentification = person.TypeIdentification,
-            //NumberIndification = person.NumberIndification
+            TypeIdentification = person.TypeIdentification,
+            NumberIndification = person.NumberIndification
         };
     }
 
@@ -265,11 +265,11 @@ public class PersonBusiness
             Id = personDto.Id,
             FirstName = personDto.FirstName,
             LastName = personDto.LastName,
-            //PhoneNumber = personDto.PhoneNumber,
+            PhoneNumber = personDto.PhoneNumber,
             Email = personDto.Email,
             Status = personDto.Status,
-            //TypeIdentification = personDto.TypeIdentification,
-            //NumberIndification = personDto.NumberIndification
+            TypeIdentification = personDto.TypeIdentification,
+            NumberIndification = personDto.NumberIndification
         };
     }
 

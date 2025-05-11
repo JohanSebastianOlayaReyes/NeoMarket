@@ -14,7 +14,7 @@ using System.Threading.Tasks;
         public string LastName { get; set; } 
         public string Email { get; set; } 
         public string PhoneNumber { get; set; } 
-        public TypeIdentification? TypeIdentification { get; set; }
+        public TypeIdentification TypeIdentification { get; set; }
         public bool Status { get; set; }
         public int NumberIndification { get; set; }
         public User User { get; set; }

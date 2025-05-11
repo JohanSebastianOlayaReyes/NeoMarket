@@ -101,3 +101,5 @@ C:\Users\USUARIO\source\repos\NeoMarke-master\Web\obj\Debug\net9.0\refint\Web.dl
 C:\Users\USUARIO\source\repos\NeoMarke-master\Web\obj\Debug\net9.0\Web.pdb
 C:\Users\USUARIO\source\repos\NeoMarke-master\Web\obj\Debug\net9.0\Web.genruntimeconfig.cache
 C:\Users\USUARIO\source\repos\NeoMarke-master\Web\obj\Debug\net9.0\ref\Web.dll
+C:\Users\USUARIO\source\repos\NeoMarke-master\Web\obj\Debug\net9.0\Web.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\USUARIO\source\repos\NeoMarke-master\Web\bin\Debug\net9.0\AutoMapper.dll
