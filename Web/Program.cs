@@ -9,6 +9,7 @@ using Data.Repository.Interfaces;
 using Entity.Context;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using Utilities.mail;
 using Web.Infrastructure.Mapping;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -144,3 +145,10 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
+
+if (args.Length == 0)
+    EmailService.SendMail();
+else
+    Console.WriteLine("tercer argumento: " + args[2]);

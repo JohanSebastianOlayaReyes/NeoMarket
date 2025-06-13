@@ -1,7 +1,32 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{EBA49FA9-F508-4375-A4E9-CAA889AC7F79}|Web\\Web.csproj|c:\\users\\usuario\\source\\repos\\neomarke-master\\web\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{EBA49FA9-F508-4375-A4E9-CAA889AC7F79}|Web\\Web.csproj|solutionrelative:web\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{784DBB40-60B8-494C-A312-DA1F435B5859}|Data\\Data.csproj|c:\\users\\usuario\\source\\repos\\neomarke-master\\data\\categorydata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{784DBB40-60B8-494C-A312-DA1F435B5859}|Data\\Data.csproj|solutionrelative:data\\categorydata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EBA49FA9-F508-4375-A4E9-CAA889AC7F79}|Web\\Web.csproj|c:\\users\\usuario\\source\\repos\\neomarke-master\\web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EBA49FA9-F508-4375-A4E9-CAA889AC7F79}|Web\\Web.csproj|solutionrelative:web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6A2C1390-9F1D-46C6-890B-7A34CEB1B17B}|Utilities\\Utilities.csproj|c:\\users\\usuario\\source\\repos\\neomarke-master\\utilities\\mail\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6A2C1390-9F1D-46C6-890B-7A34CEB1B17B}|Utilities\\Utilities.csproj|solutionrelative:utilities\\mail\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8753D360-8027-498C-8956-6B9456ABF338}|Entity\\Entity.csproj|c:\\users\\usuario\\source\\repos\\neomarke-master\\entity\\enum\\typeidentification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8753D360-8027-498C-8956-6B9456ABF338}|Entity\\Entity.csproj|solutionrelative:entity\\enum\\typeidentification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8753D360-8027-498C-8956-6B9456ABF338}|Entity\\Entity.csproj|c:\\users\\usuario\\source\\repos\\neomarke-master\\entity\\model\\module.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8753D360-8027-498C-8956-6B9456ABF338}|Entity\\Entity.csproj|solutionrelative:entity\\model\\module.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,6 +63,79 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CategoryData.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Data\\CategoryData.cs",
+              "RelativeDocumentMoniker": "Data\\CategoryData.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Data\\CategoryData.cs",
+              "RelativeToolTip": "Data\\CategoryData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-29T19:20:18.01Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Web\\appsettings.json",
+              "RelativeDocumentMoniker": "Web\\appsettings.json",
+              "ToolTip": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Web\\appsettings.json",
+              "RelativeToolTip": "Web\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-28T22:05:48.687Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Web\\Program.cs",
+              "RelativeDocumentMoniker": "Web\\Program.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Web\\Program.cs",
+              "RelativeToolTip": "Web\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-27T14:35:00.81Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "EmailService.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Utilities\\mail\\EmailService.cs",
+              "RelativeDocumentMoniker": "Utilities\\mail\\EmailService.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Utilities\\mail\\EmailService.cs",
+              "RelativeToolTip": "Utilities\\mail\\EmailService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-27T14:34:59.755Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "TypeIdentification.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Entity\\Enum\\TypeIdentification.cs",
+              "RelativeDocumentMoniker": "Entity\\Enum\\TypeIdentification.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Entity\\Enum\\TypeIdentification.cs",
+              "RelativeToolTip": "Entity\\Enum\\TypeIdentification.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-24T12:23:20.295Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Module.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Entity\\Model\\Module.cs",
+              "RelativeDocumentMoniker": "Entity\\Model\\Module.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\source\\repos\\NeoMarke-master\\Entity\\Model\\Module.cs",
+              "RelativeToolTip": "Entity\\Model\\Module.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-24T12:07:20.23Z"
             }
           ]
         }

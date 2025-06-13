@@ -4388,6 +4388,54 @@
     ]
   },
   {
+    "ContainingType": "Web.Controllers.TestEmailController",
+    "Method": "SendMultipleEmail",
+    "RelativePath": "api/TestEmail/send-multiple",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Web.Controllers.MultipleEmailRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web.Controllers.TestEmailController",
+    "Method": "SendSimpleEmail",
+    "RelativePath": "api/TestEmail/send-simple",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Web.Controllers.SimpleEmailRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web.Controllers.TestEmailController",
+    "Method": "SendEmailWithCopy",
+    "RelativePath": "api/TestEmail/send-with-copy",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Web.Controllers.EmailWithCopyRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Web.Controllers.UserController",
     "Method": "GetAllUsers",
     "RelativePath": "api/User",
