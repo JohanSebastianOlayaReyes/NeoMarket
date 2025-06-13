@@ -1,3 +1,0 @@
-﻿ghjklkjbhjmcnujncujnsj
-    hjjkklñ
-    dmkcmkm,

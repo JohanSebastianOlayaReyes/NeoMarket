@@ -1,7 +1,0 @@
-C:\Users\USUARIO\source\repos\NeoMarke-master\Diagram3\bin\Debug\Diagram3.exe.config
-C:\Users\USUARIO\source\repos\NeoMarke-master\Diagram3\bin\Debug\Diagram3.exe
-C:\Users\USUARIO\source\repos\NeoMarke-master\Diagram3\bin\Debug\Diagram3.pdb
-C:\Users\USUARIO\source\repos\NeoMarke-master\Diagram3\obj\Debug\Diagram.csproj.AssemblyReference.cache
-C:\Users\USUARIO\source\repos\NeoMarke-master\Diagram3\obj\Debug\Diagram.csproj.CoreCompileInputs.cache
-C:\Users\USUARIO\source\repos\NeoMarke-master\Diagram3\obj\Debug\Diagram3.exe
-C:\Users\USUARIO\source\repos\NeoMarke-master\Diagram3\obj\Debug\Diagram3.pdb
